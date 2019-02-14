@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include layout="@layout/include_title_layout"/>
+
+
+    <com.algorithm.progresslayoutlibrary.ProgressLayout
+        android:id="@+id/progressLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <android.support.v4.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@android:color/white"
+            android:paddingTop="@dimen/space">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:paddingLeft="@dimen/dp_15"
+                android:paddingRight="@dimen/dp_15">
+
+
+                <!--巡河任务名称：-->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/space">
+
+                    <TextView
+                        style="@style/TextViewLine1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="巡河任务名称："
+                        android:textColor="@color/font_999999"
+                        android:textSize="15sp" />
+
+                    <TextView
+                        android:id="@+id/tv_xh_rw_mc"
+                        style="@style/TextViewLine1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/font_222222"
+                        android:textSize="15sp" />
+
+                </LinearLayout>
+
+
+                <!--巡河范围-->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/space">
+
+                    <TextView
+                        style="@style/TextViewLine1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="巡河范围："
+                        android:textColor="@color/font_999999"
+                        android:textSize="15sp" />
+
+                    <TextView
+                        android:id="@+id/tv_xh_fw"
+                        style="@style/TextViewLine1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/font_222222"
+                        android:textSize="15sp" />
+
+                </LinearLayout>
+
+                <!--巡河轨迹-->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/space">
+
+                    <TextView
+                        style="@style/TextViewLine1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="巡河轨迹："
+                        android:textColor="@color/font_999999"
+                        android:textSize="15sp" />
+
+                    <TextView
+                        android:id="@+id/tv_xh_gj"
+                        style="@style/TextViewLine1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/font_222222"
+                        android:textSize="15sp" />
+
+                </LinearLayout>
+
+                <!--发现问题-->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/space">
+
+                    <TextView
+                        style="@style/TextViewLine1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="发现问题："
+                        android:textColor="@color/font_999999"
+                        android:textSize="15sp" />
+
+                    <TextView
+                        android:id="@+id/tv_fx_wt"
+                        style="@style/TextViewLine1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/font_222222"
+                        android:textSize="15sp" />
+
+                </LinearLayout>
+
+                <!--巡河时间：2018-05-20 11:00 - 2018-05-20 12:00-->
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/space">
+
+                    <TextView
+                        style="@style/TextViewLine1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="巡河时间："
+                        android:textColor="@color/font_999999"
+                        android:textSize="15sp" />
+
+                    <TextView
+                        android:id="@+id/tv_xh_time"
+                        style="@style/TextViewLine1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/font_222222"
+                        android:textSize="15sp" />
+
+                </LinearLayout>
+
+                <WebView
+                    android:id="@+id/content"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
+
+                <com.whoami.gcxhzz.view.MyLineView style="@style/LineH"/>
+
+                <LinearLayout
+                    android:id="@+id/ll_picture"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"/>
+
+            </LinearLayout>
+
+        </android.support.v4.widget.NestedScrollView>
+    </com.algorithm.progresslayoutlibrary.ProgressLayout>
+</LinearLayout>

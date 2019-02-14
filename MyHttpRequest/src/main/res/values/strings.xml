@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">novate</string>
+    <string name="load_cache">当前无网络! 为你智能加载缓存</string>
+
+    <string name="apply">申请</string>
+    <string name="apply_join">申请加入</string>
+</resources>

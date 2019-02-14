@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include layout="@layout/include_title_layout"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_45"
+        android:orientation="horizontal"
+        android:background="@color/white">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:layout_weight="1"
+            android:text="头像"
+            android:paddingLeft="@dimen/dp_15"/>
+
+        <com.algorithm.android.widget.item.CircleImageView
+            android:id="@+id/civ_me_center_user_img"
+            android:layout_width="@dimen/dp_52"
+            android:layout_height="@dimen/dp_52"
+            android:src="@mipmap/ic_header"
+            app:civ_border_color="@color/white"
+            app:civ_border_width="@dimen/dp_1" />
+
+
+    </LinearLayout>
+
+    <com.whoami.gcxhzz.view.MyLineView style="@style/LineH"/>
+
+    <com.algorithm.android.widget.item.ForwardView
+        android:id="@+id/fv_name"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        app:algorithmLeftText="姓名"
+        app:algorithmRightText="LLL" />
+
+    <com.whoami.gcxhzz.view.MyLineView style="@style/LineH"/>
+
+    <com.algorithm.android.widget.item.ForwardView
+        android:id="@+id/fv_xingbie"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        app:algorithmLeftText="性别"
+        app:algorithmRightText="男" />
+
+    <com.whoami.gcxhzz.view.MyLineView style="@style/LineH"/>
+
+    <com.algorithm.android.widget.item.ForwardView
+        android:id="@+id/fv_zhiwu"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        app:algorithmLeftText="职务"
+        app:algorithmRightText="巡逻人"
+        app:forwardVisible="false"/>
+
+    <com.whoami.gcxhzz.view.MyLineView style="@style/LineH"/>
+
+    <com.algorithm.android.widget.item.ForwardView
+        android:id="@+id/fv_phone"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        app:algorithmLeftText="电话"
+        app:algorithmRightText="188888888"
+        app:forwardVisible="false"/>
+
+    <com.whoami.gcxhzz.view.MyLineView style="@style/LineH"/>
+
+    <com.algorithm.android.widget.item.ForwardView
+        android:id="@+id/fv_email"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        app:algorithmLeftText="邮箱"
+        app:algorithmRightText="606060600@qq.com" />
+
+</LinearLayout>

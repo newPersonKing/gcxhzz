@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include layout="@layout/include_title_layout"/>
+
+    <com.algorithm.progresslayoutlibrary.ProgressLayout
+        android:id="@+id/progressLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <android.support.v4.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@android:color/white"
+            android:paddingTop="@dimen/space">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:paddingLeft="@dimen/dp_15"
+                android:paddingRight="@dimen/dp_15">
+                <!--顶部状态-->
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:id="@+id/iv_event_urgency"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="@dimen/dp_10"
+                        android:visibility="gone"/>
+
+                    <TextView
+                        style="@style/TextViewLine1"
+                        android:id="@+id/tv_event_scope"
+                        android:layout_marginRight="60dp"
+                        android:paddingRight="10dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:textColor="@color/font_222222"
+                        android:textSize="@dimen/text_size_17sp"
+                        android:layout_toEndOf="@+id/iv_event_urgency" />
+
+                    <ImageView
+                        android:id="@+id/iv_event_state"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:visibility="gone"/>
+
+                </RelativeLayout>
+
+                <!--事件来源：-->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/space">
+
+                    <TextView
+                        style="@style/TextViewLine1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="事件来源："
+                        android:textColor="@color/font_999999"
+                        android:textSize="15sp" />
+
+                    <TextView
+                        android:id="@+id/tv_sj_ly"
+                        style="@style/TextViewLine1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/font_222222"
+                        android:textSize="15sp" />
+
+                </LinearLayout>
+
+
+                <!--上报时间：2018-05-20-->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/space">
+
+                    <TextView
+                        style="@style/TextViewLine1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="上报时间："
+                        android:textColor="@color/font_999999"
+                        android:textSize="15sp" />
+
+                    <TextView
+                        android:id="@+id/tv_sb_time"
+                        style="@style/TextViewLine1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/font_222222"
+                        android:textSize="15sp" />
+
+                </LinearLayout>
+
+                <WebView
+                    android:id="@+id/content"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
+
+                <com.whoami.gcxhzz.view.MyLineView style="@style/LineH"/>
+
+                <LinearLayout
+                    android:id="@+id/ll_picture"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"/>
+
+            </LinearLayout>
+
+        </android.support.v4.widget.NestedScrollView>
+    </com.algorithm.progresslayoutlibrary.ProgressLayout>
+</LinearLayout>

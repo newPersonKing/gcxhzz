@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/window_background"
+    android:orientation="vertical">
+
+    <include layout="@layout/include_title_layout"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@color/window_background">
+
+        <LinearLayout
+            android:id="@+id/ll_me_center_info"
+            android:layout_width="match_parent"
+            android:layout_height="82dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:background="@color/white">
+
+            <TextView
+                android:id="@+id/tv_me_center_user_name"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="未登录"
+                android:textColor="@color/font_222222"
+                android:textSize="@dimen/text_size_16sp"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:paddingLeft="@dimen/dp_15"/>
+
+            <com.algorithm.android.widget.item.CircleImageView
+                android:id="@+id/civ_me_center_user_img"
+                android:layout_width="@dimen/dp_52"
+                android:layout_height="@dimen/dp_52"
+                android:src="@mipmap/me"
+                app:civ_border_color="@color/white"
+                app:civ_border_width="@dimen/dp_1" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/dp_15"
+                android:layout_marginRight="@dimen/dp_15"
+                android:src="@mipmap/ic_forward_big"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_marginTop="@dimen/dp_30"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@color/white">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@mipmap/task_icon"
+                    android:layout_marginLeft="@dimen/dp_15"
+                    android:layout_gravity="center_vertical"/>
+
+                <com.algorithm.android.widget.item.ForwardView
+                    android:id="@+id/fv_xhrw"
+                    android:layout_width="match_parent"
+                    android:layout_height="45dp"
+                    app:algorithmLeftText="我的巡河任务"/>
+
+            </LinearLayout>
+
+
+
+            <View style="@style/LineH"/>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:background="@color/white">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="@dimen/dp_15"
+                    android:src="@mipmap/record_icon"/>
+
+                <com.algorithm.android.widget.item.ForwardView
+                    android:id="@+id/fv_xhrz"
+                    android:layout_width="match_parent"
+                    android:layout_height="45dp"
+                    app:algorithmLeftText="我的巡河日志"/>
+            </LinearLayout>
+
+
+
+            <View style="@style/LineH"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:background="@color/white"
+                    android:src="@mipmap/event_icon"
+                    android:layout_marginLeft="@dimen/dp_15"/>
+
+                <com.algorithm.android.widget.item.ForwardView
+                    android:id="@+id/fv_xhsb"
+                    android:layout_width="match_parent"
+                    android:layout_height="45dp"
+                    app:algorithmLeftText="我的事件上报"/>
+
+            </LinearLayout>
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_marginTop="@dimen/dp_30"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:background="@color/white">
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/setting"
+                android:layout_marginLeft="@dimen/dp_15"
+                android:layout_gravity="center_vertical"/>
+
+            <com.algorithm.android.widget.item.ForwardView
+                android:id="@+id/fv_shezhi"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                app:algorithmLeftText="设置"/>
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+</LinearLayout>

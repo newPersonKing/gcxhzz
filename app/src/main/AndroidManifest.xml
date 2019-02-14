@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.whoami.gcxhzz">
+
+    <!-- 网络权限，加载网络网页需要联网 -->
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.BLUETOOTH" />
+
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+
+    <application
+        android:name=".base.app.MyApplication"
+        android:allowBackup="true"
+        android:icon="@mipmap/icon"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/icon"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity android:name=".activity.MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".activity.LoginActivity" />
+        <activity android:name=".activity.MyMessageActivity" />
+        <activity android:name=".activity.Main2Activity"></activity>
+        <activity android:name=".home3.MyEventActivity"/>
+        <activity android:name=".home3.MyRecordActivity"/>
+        <activity android:name=".home3.MyTaskActivity"/>
+        <activity android:name=".home3.CopyrightWebViewActivity"/>
+        <activity android:name=".home3.MySettingActivity"/>
+        <activity android:name=".home1.MyRecordReportActivity"
+            android:windowSoftInputMode="adjustPan"/>
+        <activity android:name=".home1.MyEventRepotActivity"
+            android:windowSoftInputMode="adjustPan"/>
+        <activity android:name=".activity.CommonTextActivity"/>
+
+        <activity android:name=".home3.MyEventDetailsActivity"/>
+        <activity android:name=".home3.MyRecordDetailsActivity"/>
+        <activity android:name=".home3.MyTaskDetailsActivity"/>
+
+
+        <!-- 高德地图配置key -->
+        <meta-data
+            android:name="com.amap.api.v2.apikey"
+            android:value="16892c3e626b7e71f03fd9fb3df79907" />
+    </application>
+
+</manifest>

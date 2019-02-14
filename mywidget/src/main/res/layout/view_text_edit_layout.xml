@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:background="@drawable/click_background">
+
+        <TextView
+            android:id="@+id/tv_layout_text_edit_item"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/view_margin"
+            android:textColor="#222222"
+            android:textSize="15sp"/>
+
+        <ImageView
+            android:id="@+id/iv_clean_layout_text_edit_item"
+            android:layout_width="14dp"
+            android:layout_height="14dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="6dp"
+            android:layout_marginRight="8dp"
+            android:src="@mipmap/clean"
+            android:visibility="invisible"/>
+
+        <EditText
+            android:id="@+id/et_layout_text_edit_item"
+            android:layout_width="225dp"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="2dp"
+            android:layout_toLeftOf="@id/iv_clean_layout_text_edit_item"
+            android:background="@null"
+            android:textCursorDrawable="@null"
+            android:ellipsize="end"
+            android:singleLine="true"
+            android:maxLength="32"
+            android:gravity="right"
+            android:textColorHint="#999999"
+            android:textSize="15sp"/>
+    </RelativeLayout>
+
+    <!--<View style="@style/LineHorizontal" />-->
+
+</android.support.constraint.ConstraintLayout>

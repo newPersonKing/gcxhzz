@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <include layout="@layout/include_title_layout"/>
+
+        <View style="@style/LineH"/>
+
+
+        <com.algorithm.android.widget.item.ForwardView
+            android:id="@+id/fv_event_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:algorithmLeftText="事件名称"
+            app:algorithmRightText="必填"/>
+
+        <View style="@style/LineH"/>
+
+        <com.algorithm.android.widget.item.ForwardView
+            android:id="@+id/fv_event_range"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:algorithmLeftText="河段"
+            app:algorithmRightText="必填"/>
+
+        <View style="@style/LineH"/>
+
+
+
+        <com.algorithm.android.widget.item.ForwardView
+            android:id="@+id/fv_event_urgency"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:algorithmLeftText="紧急程度"
+            app:algorithmRightText="必填"/>
+
+        <View style="@style/LineH"/>
+        <com.algorithm.android.widget.item.ForwardView
+            android:id="@+id/fv_event_source"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:algorithmLeftText="事件来源"
+            app:algorithmRightText="必填"/>
+
+        <View style="@style/LineH"/>
+
+        <com.algorithm.android.widget.item.ForwardView
+            android:id="@+id/fv_event_content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:algorithmLeftText="事件内容"
+            app:algorithmRightText="必填"/>
+
+        <View style="@style/LineH"/>
+
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:background="@android:color/white"
+            android:padding="@dimen/space">
+            <TextView
+                android:id="@+id/tv_recycler_view"
+                android:textSize="@dimen/text_size_13sp"
+                android:textColor="@color/font_999999"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="@dimen/dp_93"
+                android:text="最多上传三张图片" />
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="84dp"/>
+        </FrameLayout>
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btn_commit"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/theme_color"
+        android:text="提交"
+        android:textColor="@android:color/white"
+        android:textSize="17sp"
+        android:elevation="8dp"/>
+
+</LinearLayout>

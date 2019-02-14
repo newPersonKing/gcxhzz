@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/main_view_pager"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"/>
+
+    <RadioGroup
+        android:id="@+id/radioGroup"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:background="@android:color/white"
+        android:orientation="horizontal"
+        android:paddingTop="6dp"
+        android:paddingBottom="6dp"
+        android:elevation="8dp">
+
+        <RadioButton
+            android:id="@+id/homeTab1"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:button="@null"
+            android:checked="true"
+            android:drawableTop="@drawable/selector_home_tab1"
+            android:gravity="center"
+            android:text="首页"
+            android:textColor="@drawable/home_tab_color"
+            android:textSize="10sp"
+            android:background="@android:color/white"/>
+
+        <RadioButton
+            android:id="@+id/homeTab2"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:button="@null"
+            android:drawableTop="@drawable/selector_home_tab2"
+            android:gravity="center"
+            android:text="动态数据"
+            android:textColor="@drawable/home_tab_color"
+            android:textSize="10sp"
+            android:background="@android:color/white"/>
+
+
+
+        <RadioButton
+            android:id="@+id/homeTab3"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:button="@null"
+            android:drawableTop="@drawable/selector_home_tab4"
+            android:gravity="center"
+            android:text="我"
+            android:textColor="@drawable/home_tab_color"
+            android:textSize="10sp"
+            android:background="@android:color/white"/>
+
+    </RadioGroup>
+
+</LinearLayout>

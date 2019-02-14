@@ -1,0 +1,1 @@
+include ':app', ':MyHttpRequest', ':MyRecyclerViewAdapter', ':mywidget', ':MyjsBridge', ':picture_library', ':Ucrop', ':PhotoView','SwipeRefresh','ProgressLayout'

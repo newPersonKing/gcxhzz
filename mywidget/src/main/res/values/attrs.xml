@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <declare-styleable name="ForwardView">
+        <attr name="algorithmLeftText" format="string" />
+        <attr name="algorithmRightText" format="string" />
+        <attr name="selectCommonItemViewTextColor" format="reference|color" />
+        <attr name="selectCommonItemTopVisibility" format="boolean" />
+        <attr name="selectCommonItemLeftDrawable" format="reference" />
+        <attr name="forwardVisible" format="boolean"/>
+        <attr name="isHint" format="boolean"/>
+    </declare-styleable>
+
+    <declare-styleable name="WaveSideBar">
+        <attr name="sidebar_lazy_respond" format="boolean"/>
+        <attr name="sidebar_text_size" format="dimension"/>
+        <attr name="sidebar_text_color" format="color"/>
+        <attr name="sidebar_max_offset" format="dimension"/>
+        <attr name="sidebar_position" format="enum">
+            <enum name="right" value="0"/>
+            <enum name="left" value="1"/>
+        </attr>
+        <attr name="sidebar_text_alignment" format="enum">
+            <enum name="center" value="0"/>
+            <enum name="left" value="1"/>
+            <enum name="right" value="2" />
+        </attr>
+    </declare-styleable>
+
+    <declare-styleable name="TextEditItemView">
+        <attr name="textCommonItemViewText" format="string" />
+        <attr name="textCommonItemViewHint" format="string" />
+        <attr name="textCommonItemViewTextColor" format="reference" />
+    </declare-styleable>
+
+    <declare-styleable name="CircleImageView">
+        <attr name="civ_border_width" format="dimension" />
+        <attr name="civ_border_color" format="color" />
+        <attr name="civ_border_overlay" format="boolean" />
+        <!-- {@deprecated Use civ_circlebackground_color instead.} -->
+        <attr name="civ_fill_color" format="color" />
+        <attr name="civ_circle_background_color" format="color" />
+    </declare-styleable>
+    <declare-styleable name="JumpCommonItemView">
+        <attr name="jumpCommonItemViewTitle" format="string" />
+        <attr name="jumpCommonItemViewSrc" format="reference" />
+    </declare-styleable>
+</resources>

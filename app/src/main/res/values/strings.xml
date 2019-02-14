@@ -1,0 +1,35 @@
+<resources>
+    <string name="app_name">刚察县河长制</string>
+     <string name="baifen">%</string>
+    <string name="QSKSL">取水口数量(个)：%1$s</string>
+    <string name="XKQSZL">许可取水总量(万m3)：%1$s</string>
+    <string name="SJNQSZL">实际年取水总量(万m3)：%1$s</string>
+    <string name="YYSSYDSL">饮用水水源地数量(个)：%1$s</string>
+    <string name="SYDNGSL">水源地年供水量(万m3)：%1$s</string>
+    <string name="SYDSZLB">水源地水质类别：%1$s</string>
+
+    <string name="tqhdqddmszlb">同期河段起点断面水质类别：%1$s</string>
+    <string name="tqhdyddmszlb">同期河段讫点断面水质类别：%1$s</string>
+    <string name="szyyslhdcdzb">水质优于III类河段长度占比(%%)：%1$s</string>
+    <string name="szslshdcddzb">水质IV类水河段长度占比(%%)：%1$s</string>
+    <string name="szwlhdcdzb">水质V类水河段长度占比(%%)：%1$s</string>
+    <string name="szlwlshddcdzb">水质劣V类水河段长度占比(%%)：%1$s</string>
+    <string name="sgnqszdbl">水功能区水质达标率(%%)：%1$s</string>
+
+    <string name="dndlts">当年断流天数(天)：%1$s</string>
+    <string name="dndlcd">当年断流长度(km)：%1$s</string>
+    <string name="zrwhzynhqsl">自然文化资源保护区数量(个)：%1$s</string>
+    <string name="gjzdstgnqsl">国家重点生态功能区数量(个)：%1$s</string>
+    <string name="zdfjmsqsl">重点风景名胜区数量(个)：%1$s</string>
+
+    <string name="zaxcd">左岸岸线长度(km)：%1$s</string>
+    <string name="yaxcd">右岸岸线长度(km)：%1$s</string>
+    <string name="jxzaxcd">江心洲岸线长度(km)：%1$s</string>
+    <string name="hjaxcd">合计岸线长度(km)：%1$s</string>
+    <string name="bhqaxgnqfcd">保护区岸线功能分区长度(km)：%1$s</string>
+    <string name="blqaxgnqfcd">保留区岸线功能分区长度(km)：%1$s</string>
+    <string name="kzlyqaxgnfqcd">控制利用区岸线功能分区长度(km)：%1$s</string>
+    <string name="kflyqaxgnfqcd">开发利用区岸线功能分区长度(km)：%1$s</string>
+    <string name="kflycd">开发利用长度(km)：%1$s</string>
+    <string name="kflyl">开发利用率(%%)：%1$s</string>
+</resources>
