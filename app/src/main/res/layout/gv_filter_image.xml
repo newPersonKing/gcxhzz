@@ -12,8 +12,7 @@
             android:id="@+id/fiv"
             android:layout_width="83dp"
             android:layout_height="83dp"
-            android:scaleType="centerCrop"
-            android:src="@color/color_f6" />
+            android:scaleType="centerCrop" />
 
         <LinearLayout
             android:id="@+id/ll_del"

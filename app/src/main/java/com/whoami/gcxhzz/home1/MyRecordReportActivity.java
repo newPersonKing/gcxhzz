@@ -10,6 +10,8 @@ import android.widget.Toast;
 
 import com.algorithm.android.widget.dialog.AlActionSheetDialog;
 import com.algorithm.android.widget.item.ForwardView;
+import com.luck.picture.lib.PictureSelector;
+import com.luck.picture.lib.config.PictureConfig;
 import com.tamic.novate.Novate;
 import com.tamic.novate.Throwable;
 import com.whoami.gcxhzz.R;
@@ -114,7 +116,7 @@ public class MyRecordReportActivity extends BaseUploadActivity {
         super.onAddPicHintShowListener = new GridImageAdapter.OnAddPicHintShowListener() {
             @Override
             public void onResume() {
-                if(selectMedia.size()>0){
+                if(selectList.size()>0){
                     tvRecyclerView.setVisibility(View.GONE);
                 }else{
                     tvRecyclerView.setVisibility(View.VISIBLE);
@@ -122,7 +124,7 @@ public class MyRecordReportActivity extends BaseUploadActivity {
             }
             @Override
             public void onDeletePicClick() {
-                if(selectMedia.size()>0){
+                if(selectList.size()>0){
                     tvRecyclerView.setVisibility(View.GONE);
                 }else{
                     tvRecyclerView.setVisibility(View.VISIBLE);
@@ -261,7 +263,7 @@ public class MyRecordReportActivity extends BaseUploadActivity {
             case R.id.btn_commit:
                 if (!Untils.isFastClick()){
                     if (checkData()){
-                        if (selectMedia.size()>0){
+                        if (selectList.size()>0){
                             mProgressDialog.setMessage("上传文件中..");
                             mProgressDialog.show();
                             postFiles();
@@ -308,6 +310,17 @@ public class MyRecordReportActivity extends BaseUploadActivity {
                         fv_task_content.setRightText(res);
                     }
                 }
+                break;
+            case PictureConfig.CHOOSE_REQUEST:
+                selectList = PictureSelector.obtainMultipleResult(data);
+                // 例如 LocalMedia 里面返回三种path
+                // 1.media.getPath(); 为原图path
+                // 2.media.getCutPath();为裁剪后path，需判断media.isCut();是否为true
+                // 3.media.getCompressPath();为压缩后path，需判断media.isCompressed();是否为true
+                // 如果裁剪并压缩了，已取压缩路径为准，因为是先裁剪后压缩的
+
+                adapter.setList(selectList);
+                adapter.notifyDataSetChanged();
                 break;
         }
     }

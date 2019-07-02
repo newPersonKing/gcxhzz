@@ -3,18 +3,29 @@
     package="com.whoami.gcxhzz">
 
     <!-- 网络权限，加载网络网页需要联网 -->
-    <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.BLUETOOTH" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission android:name="android.permission.WRITE_MEDIA_STORAGE" />
 
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
-
+    <!-- 这个权限用于进行网络定位-->
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"></uses-permission>
+    <!-- 这个权限用于访问GPS定位-->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"></uses-permission>
+    <!-- 用于访问wifi网络信息，wifi信息会用于进行网络定位-->
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"></uses-permission>
+    <!-- 获取运营商信息，用于支持提供运营商信息相关的接口-->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"></uses-permission>
+    <!-- 这个权限用于获取wifi的获取权限，wifi信息会用来进行网络定位-->
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE"></uses-permission>
+    <!-- 用于读取手机当前的状态-->
+    <uses-permission android:name="android.permission.READ_PHONE_STATE"></uses-permission>
+    <!-- 写入扩展存储，向扩展卡写入数据，用于写入离线定位数据-->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"></uses-permission>
+    <!-- 访问网络，网络定位需要上网-->
     <uses-permission android:name="android.permission.INTERNET" />
-
-    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
 
     <application
         android:name=".base.app.MyApplication"
@@ -48,12 +59,25 @@
         <activity android:name=".home3.MyEventDetailsActivity"/>
         <activity android:name=".home3.MyRecordDetailsActivity"/>
         <activity android:name=".home3.MyTaskDetailsActivity"/>
+        <activity android:name=".picturepreview.ImagePreviewActivity"/>
+        <activity android:name=".map.LocationActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".activity.CustomPictureVideoPlayActivity"/>
 
+        <service android:name=".recorder.RecordingService"/>
 
-        <!-- 高德地图配置key -->
         <meta-data
-            android:name="com.amap.api.v2.apikey"
-            android:value="16892c3e626b7e71f03fd9fb3df79907" />
+            android:name="com.baidu.lbsapi.API_KEY"
+            android:value="xxRdTw1WiBSmD5ABOovayTgdmrMsqECu" >
+        </meta-data>
+
+        <!-- 声明service组件 -->
+        <service
+            android:name="com.baidu.location.f"
+            android:enabled="true"
+            android:process=":remote" >
+        </service>
+
     </application>
 
 </manifest>

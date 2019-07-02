@@ -22,6 +22,7 @@ public class RiverEntity extends BaseEntity{
 
         private String code;
         private String name;
+        private boolean isSelect;
 
         public String getCode() {
             return code;
@@ -37,6 +38,14 @@ public class RiverEntity extends BaseEntity{
 
         public void setName(String name) {
             this.name = name;
+        }
+
+        public boolean isSelect() {
+            return isSelect;
+        }
+
+        public void setSelect(boolean select) {
+            isSelect = select;
         }
     }
 }

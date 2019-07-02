@@ -10,12 +10,14 @@ import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.SimpleTarget;
+import com.bumptech.glide.request.transition.Transition;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -138,9 +140,9 @@ public class FileUtils {
 
     public static void saveBitmapGlide(final Context context, String url, final String fileNmae){
 
-        Glide.with(context).load(url).asBitmap().skipMemoryCache(true).into(new SimpleTarget<Bitmap>() {
+        Glide.with(context).asBitmap().load(url).into(new SimpleTarget<Bitmap>() {
             @Override
-            public void onResourceReady(Bitmap resource, GlideAnimation<? super Bitmap> glideAnimation) {
+            public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
                 saveImageToGallery(resource,fileNmae,context);
                 Toast.makeText(context,"保存成功",Toast.LENGTH_SHORT).show();
             }

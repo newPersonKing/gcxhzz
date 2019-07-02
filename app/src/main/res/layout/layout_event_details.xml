@@ -104,7 +104,20 @@
                         android:textColor="@color/font_222222"
                         android:textSize="15sp" />
 
+
                 </LinearLayout>
+
+                <Button
+                    android:id="@+id/btn_video_play"
+                    style="?android:attr/borderlessButtonStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_15"
+                    android:background="@drawable/shape_corner_back_blue"
+                    android:padding="0dp"
+                    android:text="视频播放"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/text_size_17sp" />
 
                 <WebView
                     android:id="@+id/content"

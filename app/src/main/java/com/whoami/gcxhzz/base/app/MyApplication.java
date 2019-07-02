@@ -1,13 +1,17 @@
 package com.whoami.gcxhzz.base.app;
 
 import android.app.Application;
+import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Vibrator;
 
 import com.algorithm.android.widget.item.ForwardView;
+import com.baidu.mapapi.SDKInitializer;
 import com.whoami.gcxhzz.activity.MainActivity;
 import com.whoami.gcxhzz.entity.UserInfo;
 import com.whoami.gcxhzz.entity.UserInforData;
+import com.whoami.gcxhzz.map.LocationService;
 import com.whoami.gcxhzz.until.AppManager;
 import com.whoami.gcxhzz.until.BaseUtils;
 import com.whoami.gcxhzz.until.SPUtils;
@@ -23,11 +27,19 @@ public class MyApplication extends Application {
 
     private static boolean isLogin=false;
 
+    public LocationService locationService;
+    public Vibrator mVibrator;
     @Override
     public void onCreate() {
         super.onCreate();
         BaseUtils.init(this);
 
+        /***
+         * 初始化定位sdk，建议在Application中创建 初始化 locationService
+         */
+        locationService = new LocationService(getApplicationContext());
+        mVibrator =(Vibrator)getApplicationContext().getSystemService(Service.VIBRATOR_SERVICE);
+        SDKInitializer.initialize(getApplicationContext());
     }
 
 

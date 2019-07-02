@@ -14,10 +14,11 @@
             <option value="$PROJECT_DIR$/PhotoView" />
             <option value="$PROJECT_DIR$/ProgressLayout" />
             <option value="$PROJECT_DIR$/SwipeRefresh" />
-            <option value="$PROJECT_DIR$/Ucrop" />
             <option value="$PROJECT_DIR$/app" />
+            <option value="$PROJECT_DIR$/marqueelibrary" />
             <option value="$PROJECT_DIR$/mywidget" />
-            <option value="$PROJECT_DIR$/picture_library" />
+            <option value="$PROJECT_DIR$/nucrop" />
+            <option value="$PROJECT_DIR$/pictureandrecorder" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />

@@ -1,18 +1,24 @@
 package com.whoami.gcxhzz.home3;
 
+import android.content.Intent;
+import android.os.Environment;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebView;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.algorithm.android.utils.DisplayUtils;
 import com.algorithm.progresslayoutlibrary.ProgressLayout;
+import com.luck.picture.lib.PictureSelector;
 import com.tamic.novate.Novate;
 import com.tamic.novate.Throwable;
+import com.tamic.novate.download.DownLoadCallBack;
 import com.whoami.gcxhzz.R;
+import com.whoami.gcxhzz.activity.CustomPictureVideoPlayActivity;
 import com.whoami.gcxhzz.base.activity.BaseTitleActivity;
 import com.whoami.gcxhzz.entity.EventDetailsEntity;
 import com.whoami.gcxhzz.entity.EventEntityData;
@@ -30,11 +36,13 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
+import java.io.File;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import butterknife.BindView;
+import butterknife.OnClick;
 
 /*事件上报详情*/
 public class MyEventDetailsActivity extends BaseTitleActivity {
@@ -55,8 +63,11 @@ public class MyEventDetailsActivity extends BaseTitleActivity {
     ImageView iv_event_state;
     @BindView(R.id.progressLayout)
     ProgressLayout progressLayout;
+    @BindView(R.id.btn_video_play)
+    Button btn_video_play;
 
     private int id;
+    private String videoUrl;
     @Override
     protected int onSetContentView() {
         return R.layout.layout_event_details;
@@ -122,6 +133,11 @@ public class MyEventDetailsActivity extends BaseTitleActivity {
 
     private void setData(EventEntityData eventEntityData){
 
+        if(ObjectUtils.isNotNull(eventEntityData.getVideoUrl())){
+            btn_video_play.setVisibility(View.VISIBLE);
+            videoUrl = eventEntityData.getVideoUrl();
+        }
+
         String source="";
         if (eventEntityData.getSource()==10){
             source="巡查河湖";
@@ -159,6 +175,7 @@ public class MyEventDetailsActivity extends BaseTitleActivity {
         String html = doc.toString();
         content.loadData(html, "text/html; charset=UTF-8", null);
         addImg(eventEntityData.getFileUrl());
+
     }
 
     /**
@@ -183,5 +200,52 @@ public class MyEventDetailsActivity extends BaseTitleActivity {
                 ImageLoadUtils.loadImage(imgs.get(i), newImg);
             }
         }
+    }
+
+    @OnClick({
+            R.id.btn_video_play
+    })
+    @Override
+    public void onClick(View v) {
+        super.onClick(v);
+        switch (v.getId()){
+            case R.id.btn_video_play:
+                downLoadVideo();
+                if(ObjectUtils.isNotNull(videoUrl)){
+                    Intent videoIntent = new Intent(this,CustomPictureVideoPlayActivity.class);
+                    videoIntent.putExtra("video_path", videoUrl);
+                    startActivity(videoIntent);
+                }
+                break;
+        }
+    }
+
+    /*在线播放 实在是有点卡*/
+    private void downLoadVideo(){
+        String savePath = Environment.getExternalStorageDirectory().getAbsolutePath()+"/ZHIHE/VIDEODOWNLOAD/";
+        File dirFile = new File(savePath);
+        if(!dirFile.exists()){
+            dirFile.mkdirs();
+        }
+
+        String[] strs = videoUrl.split("/");
+        String name = strs[strs.length-1];
+        File videoFile = new File(savePath+"/"+name);
+        if(videoFile.exists()){
+            return;
+        }
+        HttpRequestUtils.getInstance().getNovate().download(System.currentTimeMillis()+"video",videoUrl,savePath,name,
+                new DownLoadCallBack(){
+
+            @Override
+            public void onError(Throwable e) {
+
+            }
+
+            @Override
+            public void onSucess(String key, String path, String name, long fileSize) {
+                Log.i("ccccc","path===="+path+"==="+name);
+            }
+        });
     }
 }

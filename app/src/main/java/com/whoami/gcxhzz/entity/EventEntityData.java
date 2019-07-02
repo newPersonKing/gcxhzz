@@ -27,6 +27,10 @@ public class EventEntityData {
     private int state;
     private List<String>  fileUrl;
 
+    private String audioUrl;/*录音*/
+
+    private String videoUrl;/*录制视频*/
+
     public List<String> getFileUrl() {
         return fileUrl;
     }
@@ -105,5 +109,21 @@ public class EventEntityData {
 
     public void setState(int state) {
         this.state = state;
+    }
+
+    public String getAudioUrl() {
+        return audioUrl;
+    }
+
+    public void setAudioUrl(String audioUrl) {
+        this.audioUrl = audioUrl;
+    }
+
+    public String getVideoUrl() {
+        return videoUrl;
+    }
+
+    public void setVideoUrl(String videoUrl) {
+        this.videoUrl = videoUrl;
     }
 }

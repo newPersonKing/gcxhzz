@@ -1,12 +1,15 @@
 package com.whoami.gcxhzz.until;
 
 import android.content.Context;
+import android.graphics.drawable.Drawable;
+import android.support.annotation.Nullable;
 import android.widget.ImageView;
 
-import com.bumptech.glide.DrawableRequestBuilder;
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.resource.drawable.GlideDrawable;
+import com.bumptech.glide.load.DataSource;
+import com.bumptech.glide.load.engine.GlideException;
 import com.bumptech.glide.request.RequestListener;
+import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.Target;
 import com.whoami.gcxhzz.R;
 
@@ -17,19 +20,21 @@ import com.whoami.gcxhzz.R;
 public class ImageLoadUtils {
 
     public static <T> void loadImage(T res, final ImageView imageView, int loadImg, int errorImg) {
-        DrawableRequestBuilder<T> builder = Glide.with(BaseUtils.getContext()).load(res)
-                .placeholder(loadImg) //设置占位图
-                .error(errorImg); //设置错误图片;
-        builder.into(imageView);
+
+        RequestOptions options = new RequestOptions()
+                .error(errorImg)
+                .placeholder(loadImg);
+
+        Glide.with(BaseUtils.getContext()).load(res).apply(options).into(imageView);
 
     }
     public static <T> void loadImageMatchParent(T res, final ImageView imageView, int loadImg, int errorImg) {
-        DrawableRequestBuilder<T> builder = Glide.with(BaseUtils.getContext()).load(res)
-                .placeholder(loadImg) //设置占位图
-                .error(errorImg).centerCrop(); //设置错误图片;
-        builder.into(imageView);
+        RequestOptions options = new RequestOptions()
+                .error(errorImg)
+                .placeholder(loadImg)
+                .centerCrop();
 
-
+        Glide.with(BaseUtils.getContext()).load(res).apply(options).into(imageView); //设置错误图片;
     }
 
     public static <T> void loadImage(T res, ImageView imageView) {
@@ -37,10 +42,10 @@ public class ImageLoadUtils {
     }
 
     public <T> void loadListImageBig(Context context, T res, ImageView imageView) {
-        DrawableRequestBuilder<T> builder = Glide.with(context).load(res)
-                .placeholder(R.mipmap.ic_launcher) //设置占位图
-                .error(R.mipmap.ic_launcher); //设置错误图片;
-        builder.into(imageView);
+        RequestOptions options = new RequestOptions()
+                .error(R.mipmap.ic_launcher)
+                .placeholder(R.mipmap.ic_launcher);
+        Glide.with(context).load(res).into(imageView); //设置错误图片;
     }
     /**
      * 加载用户图像
@@ -50,11 +55,11 @@ public class ImageLoadUtils {
      * @param <T>
      */
     public static <T> void loadHeaderImage(T res, ImageView imageView) {
-        Glide.with(BaseUtils.getContext()).load(res)
-                .asBitmap()
-                .centerCrop()
-                .placeholder(R.mipmap.ic_header) //设置占位图
-                .error(R.mipmap.ic_header).into(imageView); //设置错误图片;
+        RequestOptions options = new RequestOptions()
+                .error(R.mipmap.ic_launcher)
+                .placeholder(R.mipmap.ic_launcher)
+                .centerCrop();
+        Glide.with(BaseUtils.getContext()).asBitmap().load(res).into(imageView); //设置错误图片;
     }
 
     public static <T> void loadImage_132_76(T res, ImageView imageView) {
@@ -93,26 +98,26 @@ public class ImageLoadUtils {
     }
 
     public static <T> void loadImageWithListener(T res, final ImageView imageView, int loadImg, int errorImg,final LoadInterface LoadInterface) {
-        DrawableRequestBuilder<T> builder = Glide.with(BaseUtils.getContext()).load(res)
-                .placeholder(null) //设置占位图
-                .error(errorImg)
-                .listener(new RequestListener<T, GlideDrawable>() {
+        RequestOptions options = new RequestOptions();
+        options.placeholder(null);
+        options.error(errorImg);
+
+        Glide.with(BaseUtils.getContext()).load(res).apply(options)
+                .listener(new RequestListener<Drawable>() {
                     @Override
-                    public boolean onException(Exception e, T model, Target<GlideDrawable> target, boolean isFirstResource) {
+                    public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
                         LoadInterface.loadingFinish();
                         return false;
                     }
 
                     @Override
-                    public boolean onResourceReady(GlideDrawable resource, T model, Target<GlideDrawable> target, boolean isFromMemoryCache, boolean isFirstResource) {
+                    public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
                         LoadInterface.loadingFinish();
                         return false;
                     }
-                }); //设置错误图片;
-        builder.into(imageView);
-
+                }).into(imageView); //设置错误图片;
     }
-   public interface LoadInterface{
+    public interface LoadInterface{
         void loadingFinish();
     }
 }

@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 
+import com.luck.picture.lib.permissions.RxPermissions;
 import com.whoami.gcxhzz.base.app.MyApplication;
 import com.whoami.gcxhzz.until.RxBus;
 
@@ -34,6 +35,8 @@ public abstract class BaseFragment extends Fragment implements View.OnClickListe
 
     protected boolean isPrepare;
     public boolean isTouched=false;
+
+    public RxPermissions rxPermissions;
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);

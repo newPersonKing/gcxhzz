@@ -9,12 +9,13 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
+
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
-
+import com.bumptech.glide.request.RequestOptions;
+import com.luck.picture.lib.entity.LocalMedia;
 import com.whoami.gcxhzz.R;
 import com.whoami.gcxhzz.until.ObjectUtils;
-import com.yalantis.ucrop.entity.LocalMedia;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -156,7 +157,7 @@ public class GridImageAdapter extends
                 }
             });
             LocalMedia media = list.get(position);
-            int type = media.getType();
+            int type = media.getMimeType();
             String path = media.getPath();
             switch (type) {
                 case 1:
@@ -165,11 +166,14 @@ public class GridImageAdapter extends
                         Log.i("compress image result", new File(media.getCompressPath()).length() / 1024 + "k");
                     }
 
-                    Glide.with(mContext)
-                            .load(path)
-                            .asBitmap().centerCrop()
+                    RequestOptions options = new RequestOptions()
+                            .centerCrop()
                             .placeholder(R.color.color_f6)
-                            .diskCacheStrategy(DiskCacheStrategy.ALL)
+                            .diskCacheStrategy(DiskCacheStrategy.ALL);
+
+                    Glide.with(mContext).asBitmap()
+                            .load(path)
+                            .apply(options)
                             .into(viewHolder.mImg);
                     break;
                 case 2:

@@ -52,4 +52,6 @@
     <color name="Topicwhite">#ffffff</color>
 
     <drawable name="color_blue">@color/theme_color</drawable>
+
+    <color name="color_f6">#f6f6f6</color>
 </resources>

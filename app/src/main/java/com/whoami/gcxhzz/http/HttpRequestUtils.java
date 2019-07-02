@@ -14,7 +14,6 @@ public class HttpRequestUtils {
 
     public static final String HOST_URL = "http://222.128.113.192:18181";
 
-
     private static final int COTTECT_TIME_OUT = 30;
     private static final int WRITE_TIME_OUT = 60;
     private static final int READ_TIME_OUT = 60;
@@ -47,6 +46,7 @@ public class HttpRequestUtils {
                     .addHeader(headers)
                     .addCookie(true)
                     .addCache(false)
+//                    .addLog(false)
                     .addLog(BuildConfig.DEBUG)
                     .build();
         }

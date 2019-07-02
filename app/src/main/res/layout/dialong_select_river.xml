@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="@drawable/shape_corner_bottom">
+
+ <EditText
+     android:id="@+id/et_search_text"
+     android:layout_width="match_parent"
+     android:layout_height="@dimen/dp_30"
+     android:layout_margin="@dimen/dp_10"
+     android:background="@drawable/shape_corner_back_blue_alpha"
+     android:hint="请输入河段名称"
+     android:paddingLeft="@dimen/dp_10"
+     android:drawableRight="@drawable/edit"/>
+
+ <View style="@style/LineH"/>
+
+ <TextView
+     android:layout_width="match_parent"
+     android:layout_height="wrap_content"
+     android:text="请选择河流!"
+     android:paddingLeft="@dimen/dp_10"/>
+
+ <View style="@style/LineH"/>
+
+ <android.support.v7.widget.RecyclerView
+     android:id="@+id/rv_river_list"
+     android:layout_width="match_parent"
+     android:layout_height="200dp"/>
+
+ <LinearLayout
+     android:layout_width="match_parent"
+     android:layout_height="wrap_content"
+     android:orientation="horizontal"
+     android:background="@drawable/shape_corner_bottom">
+
+  <Button
+      android:id="@+id/btn_sure"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:text="确定"
+      android:background="@color/colorAccent"
+      android:layout_weight="1"/>
+
+  <Button
+      android:id="@+id/btn_cancle"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:text="取消"
+      android:background="@color/font_bababa"
+      android:layout_weight="1"/>
+
+ </LinearLayout>
+</LinearLayout>

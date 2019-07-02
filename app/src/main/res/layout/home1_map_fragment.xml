@@ -55,6 +55,17 @@
             android:textColor="#666666"
             android:textSize="14sp"/>
 
+
     </LinearLayout>
+
+    <Button
+        android:id="@+id/btn_go_map"
+        android:layout_width="65dp"
+        android:layout_height="65dp"
+        android:background="@drawable/foot"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginRight="@dimen/dp_20"
+        android:layout_marginBottom="@dimen/dp_20"/>
 
 </RelativeLayout>

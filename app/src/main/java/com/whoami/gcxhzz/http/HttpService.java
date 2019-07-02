@@ -28,7 +28,7 @@ public interface HttpService {
     /*获取河段名称*/
     String API_RIVERBASEINFO_GET="Api/RiverBaseInfo/Get";
 
-    /*图片上传*/
+    /*图片上传 语音视频上传*/
     String API_FILEINPUT_UPLOAD="Api/FileInput/Upload";
 
     /*获取河流动态信息*/

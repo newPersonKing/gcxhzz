@@ -3,12 +3,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <uk.co.senab.photoview.PhotoView
+    <com.luck.picture.lib.photoview.PhotoView
         android:id="@+id/photoView_fragment_imageShow"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="center" >
-    </uk.co.senab.photoview.PhotoView>
+    </com.luck.picture.lib.photoview.PhotoView>
 
     <LinearLayout
         android:id="@+id/fuck_you"

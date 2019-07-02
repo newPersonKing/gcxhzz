@@ -8,25 +8,17 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 
 
+import com.luck.picture.lib.photoview.OnPhotoTapListener;
+import com.luck.picture.lib.photoview.PhotoView;
 import com.whoami.gcxhzz.R;
 import com.whoami.gcxhzz.until.ImageLoadUtils;
 
-import uk.co.senab.photoview.PhotoView;
-import uk.co.senab.photoview.PhotoViewAttacher.OnPhotoTapListener;
 
-/**
- * <p/>
- * 。
- * <p/>
- * <p/>
- * 创建日期 2015年8月24日 下午1:19:57<br>
- *
- * @author 高炎<p>
- * @since 1.0.0
- */
+
 public class SamplePagerAdapter extends RecyclingPagerAdapter {
     private String[] images = new String[]{};
     private OnPagerImageClickListener mListener;
@@ -69,7 +61,7 @@ public class SamplePagerAdapter extends RecyclingPagerAdapter {
         vh.image.setOnPhotoTapListener(new OnPhotoTapListener() {
 
             @Override
-            public void onPhotoTap(View view, float x, float y) {
+            public void onPhotoTap(ImageView view, float x, float y) {
                 if (mListener != null) {
                     mListener.onPagerClick();
 

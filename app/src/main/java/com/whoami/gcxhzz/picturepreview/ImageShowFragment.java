@@ -5,14 +5,14 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 
+import com.luck.picture.lib.photoview.OnPhotoTapListener;
+import com.luck.picture.lib.photoview.PhotoView;
 import com.whoami.gcxhzz.R;
 import com.whoami.gcxhzz.until.ImageLoadUtils;
-
-import uk.co.senab.photoview.PhotoView;
-import uk.co.senab.photoview.PhotoViewAttacher.OnPhotoTapListener;
 
 public class ImageShowFragment extends Fragment {
     private OnPagerImageClickListener listener;// 长按保存图片会调接口
@@ -49,11 +49,9 @@ public class ImageShowFragment extends Fragment {
 
         photoView.setOnPhotoTapListener(new OnPhotoTapListener() {
             @Override
-            public void onPhotoTap(View view, float x, float y) {
+            public void onPhotoTap(ImageView view, float x, float y) {
                 listener.onPagerClick();
             }
-
-
         });
 
 //        ImageLoadUtils.loadImage(imageUri, photoView);
