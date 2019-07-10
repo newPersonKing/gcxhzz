@@ -20,27 +20,29 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:algorithmLeftText="巡河任务名称"
-            app:algorithmRightText="必填"/>
+            app:algorithmRightText="必填"
+            app:forwardVisible = "false"/>
 
         <View style="@style/LineH"/>
 
 
-
         <com.algorithm.android.widget.item.ForwardView
-            android:id="@+id/fv_task_range"
+            android:id="@+id/fv_task_time"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:algorithmLeftText="巡河范围"
-            app:algorithmRightText="必填"/>
+            app:algorithmLeftText="日期"
+            app:algorithmRightText="必填"
+            app:forwardVisible = "false"/>
 
         <View style="@style/LineH"/>
 
         <com.algorithm.android.widget.item.ForwardView
-            android:id="@+id/fv_task_quesstion"
+            android:id="@+id/fv_task_time_range"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:algorithmLeftText="发现问题"
-            app:algorithmRightText="必填"/>
+            app:algorithmLeftText="巡河时间段"
+            app:algorithmRightText="必填"
+            app:forwardVisible = "false"/>
 
         <View style="@style/LineH"/>
 
@@ -49,6 +51,28 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:algorithmLeftText="巡河轨迹"
+            app:algorithmRightText="必填"
+            app:forwardVisible = "false"/>
+
+        <View style="@style/LineH"/>
+
+
+        <com.algorithm.android.widget.item.ForwardView
+            android:id="@+id/fv_task_range"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:algorithmLeftText="河段"
+            app:algorithmRightText="必填"
+            app:forwardVisible = "false"/>
+
+        <View style="@style/LineH"/>
+
+
+        <com.algorithm.android.widget.item.ForwardView
+            android:id="@+id/fv_task_quesstion"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:algorithmLeftText="发现问题"
             app:algorithmRightText="必填"/>
 
         <View style="@style/LineH"/>

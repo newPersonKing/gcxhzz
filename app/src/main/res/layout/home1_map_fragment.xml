@@ -8,18 +8,18 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <WebView
-            android:id="@+id/home_webview"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal" />
 
-        <com.tencent.smtt.sdk.WebView
-            android:id="@+id/forum_context"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:paddingLeft="5dp"
-            android:paddingRight="5dp"/>
+        <!--<com.tencent.smtt.sdk.WebView-->
+            <!--android:id="@+id/forum_context"-->
+            <!--android:layout_width="fill_parent"-->
+            <!--android:layout_height="fill_parent"-->
+            <!--android:paddingLeft="5dp"-->
+            <!--android:paddingRight="5dp"/>-->
+
+        <com.baidu.mapapi.map.MapView
+            android:id="@+id/mapview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
 
     </com.algorithm.progresslayoutlibrary.ProgressLayout>
 
@@ -42,7 +42,8 @@
             android:layout_marginBottom="@dimen/dp_20"
             android:paddingTop="@dimen/dp_5"
             android:textColor="#666666"
-            android:textSize="14sp"/>
+            android:textSize="14sp"
+            android:visibility="gone"/>
 
         <Button
             android:id="@+id/btn_event"

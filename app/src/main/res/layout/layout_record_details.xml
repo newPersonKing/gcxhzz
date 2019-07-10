@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical">
 
     <include layout="@layout/include_title_layout"/>
@@ -91,11 +92,13 @@
 
                     <TextView
                         android:id="@+id/tv_xh_gj"
-                        style="@style/TextViewLine1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textColor="@color/font_222222"
-                        android:textSize="15sp" />
+                        android:textSize="15sp"
+                        tools:text="=================================="
+                        android:maxLines="2"
+                        android:ellipsize="end"/>
 
                 </LinearLayout>
 
@@ -111,11 +114,13 @@
                         android:layout_height="wrap_content"
                         android:text="发现问题："
                         android:textColor="@color/font_999999"
-                        android:textSize="15sp" />
+                        android:textSize="15sp"
+                        tools:text="=================================="
+                        android:maxLines="2"
+                        android:ellipsize="end"/>
 
                     <TextView
                         android:id="@+id/tv_fx_wt"
-                        style="@style/TextViewLine1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textColor="@color/font_222222"

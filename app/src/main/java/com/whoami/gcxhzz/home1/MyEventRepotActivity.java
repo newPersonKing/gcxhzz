@@ -80,7 +80,7 @@ public class MyEventRepotActivity extends BaseUploadActivity {
     @BindView(R.id.iv_recording)
     ImageView iv_recording;
     @BindView(R.id.btn_voice_click)
-    Button btn_voice_click;
+    TextView btn_voice_click;
     @BindView(R.id.iv_video_play)
     ImageView iv_video_play;
 
@@ -442,7 +442,7 @@ public class MyEventRepotActivity extends BaseUploadActivity {
                 if(videosSelectList.size()>0){
                     videoLocalMedia = videosSelectList.get(0);
                     iv_video_play.setVisibility(View.VISIBLE);
-                    Glide.with(mContext).load(videoLocalMedia.getPath()).thumbnail(0.5f).into(iv_video_play);
+                    Glide.with(mContext).load(videoLocalMedia.getPath()).into(iv_video_play);
                 }
                 break;
         }
@@ -461,6 +461,7 @@ public class MyEventRepotActivity extends BaseUploadActivity {
                 @Override
                 public void onCompletion(MediaPlayer mediaPlayer) {
                     iv_voice_playDrawable.stop();
+                    mediaPlayer.reset();
                 }
             });
         } catch (Exception e) {

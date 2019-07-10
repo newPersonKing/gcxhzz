@@ -9,6 +9,7 @@ import android.os.Vibrator;
 import com.algorithm.android.widget.item.ForwardView;
 import com.baidu.mapapi.SDKInitializer;
 import com.whoami.gcxhzz.activity.MainActivity;
+import com.whoami.gcxhzz.entity.CustomLocationMessageEntity;
 import com.whoami.gcxhzz.entity.UserInfo;
 import com.whoami.gcxhzz.entity.UserInforData;
 import com.whoami.gcxhzz.map.LocationService;
@@ -16,6 +17,8 @@ import com.whoami.gcxhzz.until.AppManager;
 import com.whoami.gcxhzz.until.BaseUtils;
 import com.whoami.gcxhzz.until.SPUtils;
 
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class MyApplication extends Application {
@@ -29,6 +32,7 @@ public class MyApplication extends Application {
 
     public LocationService locationService;
     public Vibrator mVibrator;
+    public List<CustomLocationMessageEntity> customLocationMessageEntities =new ArrayList<>();
     @Override
     public void onCreate() {
         super.onCreate();

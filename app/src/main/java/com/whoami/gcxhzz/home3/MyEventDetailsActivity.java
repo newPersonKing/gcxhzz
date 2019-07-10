@@ -1,6 +1,8 @@
 package com.whoami.gcxhzz.home3;
 
 import android.content.Intent;
+import android.graphics.drawable.AnimationDrawable;
+import android.media.MediaPlayer;
 import android.os.Environment;
 import android.util.Log;
 import android.view.View;
@@ -37,6 +39,7 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import java.io.File;
+import java.lang.reflect.Field;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -65,9 +68,16 @@ public class MyEventDetailsActivity extends BaseTitleActivity {
     ProgressLayout progressLayout;
     @BindView(R.id.btn_video_play)
     Button btn_video_play;
+    @BindView(R.id.btn_voice_download)
+    Button btn_voice_download;
+    @BindView(R.id.iv_voice_play)
+    Button iv_voice_play;
+//    @BindView(R.id.ll_voice_play)
+//    LinearLayout ll_voice_play;
 
     private int id;
-    private String videoUrl;
+    private String videoUrl,audioUrl;
+//    private AnimationDrawable iv_voice_playDrawable;
     @Override
     protected int onSetContentView() {
         return R.layout.layout_event_details;
@@ -86,6 +96,8 @@ public class MyEventDetailsActivity extends BaseTitleActivity {
                 loadDetails();
             }
         });
+
+//        iv_voice_playDrawable = (AnimationDrawable) iv_voice_play.getDrawable();
 
         loadDetails();
     }
@@ -138,6 +150,20 @@ public class MyEventDetailsActivity extends BaseTitleActivity {
             videoUrl = eventEntityData.getVideoUrl();
         }
 
+        if(ObjectUtils.isNotNull(eventEntityData.getAudioUrl())){
+            audioUrl = eventEntityData.getAudioUrl();
+            /*[判断显示什么*/
+            String name =getFileName(audioUrl);
+            File voiceFile = new File(voiceSavePath+"/"+name);
+            if(voiceFile.exists()){
+                btn_voice_download.setVisibility(View.GONE);
+//                ll_voice_play.setVisibility(View.VISIBLE);
+                iv_voice_play.setVisibility(View.VISIBLE);
+            }else{
+                btn_voice_download.setVisibility(View.VISIBLE);
+            }
+        }
+
         String source="";
         if (eventEntityData.getSource()==10){
             source="巡查河湖";
@@ -164,7 +190,7 @@ public class MyEventDetailsActivity extends BaseTitleActivity {
         if (eventEntityData.getState()==0){
             iv_event_state.setImageResource(R.mipmap.ic_activity_state_jx);
         }else {
-           iv_event_state.setImageResource(R.mipmap.state_completed);
+            iv_event_state.setImageResource(R.mipmap.state_completed);
         }
 
         Document doc = Jsoup.parse(eventEntityData.getContent());
@@ -203,7 +229,9 @@ public class MyEventDetailsActivity extends BaseTitleActivity {
     }
 
     @OnClick({
-            R.id.btn_video_play
+            R.id.btn_video_play,
+            R.id.btn_voice_download,
+            R.id.iv_voice_play
     })
     @Override
     public void onClick(View v) {
@@ -217,35 +245,105 @@ public class MyEventDetailsActivity extends BaseTitleActivity {
                     startActivity(videoIntent);
                 }
                 break;
+            case R.id.btn_voice_download:
+                if(ObjectUtils.isNotNull(audioUrl)){
+                    downLoadVoice();
+                }
+                break;
+            case R.id.iv_voice_play:
+                Play(audioUrl);
+                break;
         }
     }
-
+    String videoSavePath = Environment.getExternalStorageDirectory().getAbsolutePath()+"/ZHIHE/VIDEODOWNLOAD/";
     /*在线播放 实在是有点卡*/
     private void downLoadVideo(){
-        String savePath = Environment.getExternalStorageDirectory().getAbsolutePath()+"/ZHIHE/VIDEODOWNLOAD/";
-        File dirFile = new File(savePath);
+
+        File dirFile = new File(videoSavePath);
         if(!dirFile.exists()){
             dirFile.mkdirs();
         }
 
         String[] strs = videoUrl.split("/");
         String name = strs[strs.length-1];
-        File videoFile = new File(savePath+"/"+name);
+        File videoFile = new File(videoSavePath+"/"+name);
         if(videoFile.exists()){
             return;
         }
-        HttpRequestUtils.getInstance().getNovate().download(System.currentTimeMillis()+"video",videoUrl,savePath,name,
+        HttpRequestUtils.getInstance().getNovate().download(System.currentTimeMillis()+"video",videoUrl,videoSavePath,name,
                 new DownLoadCallBack(){
 
-            @Override
-            public void onError(Throwable e) {
+                    @Override
+                    public void onError(Throwable e) {
 
-            }
+                    }
 
-            @Override
-            public void onSucess(String key, String path, String name, long fileSize) {
-                Log.i("ccccc","path===="+path+"==="+name);
-            }
-        });
+                    @Override
+                    public void onSucess(String key, String path, String name, long fileSize) {
+                        Log.i("ccccc","path===="+path+"==="+name);
+                    }
+                });
     }
+    private String    voiceSavePath = Environment.getExternalStorageDirectory().getAbsolutePath()+"/ZHIHE/VOICEDOWNLOAD/";
+    private void downLoadVoice(){
+        Log.i("cccccccc","downLoadVoice");
+        File dirFile = new File(voiceSavePath);
+        if(!dirFile.exists()){
+            dirFile.mkdirs();
+        }
+        Log.i("cccccccc","downLoadVoice");
+        String name = getFileName(audioUrl);
+        File voiceFile = new File(voiceSavePath+"/"+name);
+        Log.i("cccccccc","downLoadVoice"+voiceFile.exists());
+        if(voiceFile.exists()){
+            return;
+        }
+        Log.i("cccccccc","downLoadVoice");
+        HttpRequestUtils.getInstance().getNovate().download(System.currentTimeMillis()+"voice",audioUrl,voiceSavePath,name,
+                new DownLoadCallBack(){
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onSucess(String key, String path, String name, long fileSize) {
+                        Log.i("ccccc","path===="+path+"==="+name);
+//                        ll_voice_play.setVisibility(View.VISIBLE);
+                        iv_voice_play.setVisibility(View.VISIBLE);
+                        btn_voice_download.setVisibility(View.GONE);
+                    }
+                });
+    }
+
+    private String getFileName(String path){
+        String[] strs = path.split("/");
+        String name = strs[strs.length-1];
+        return name;
+    }
+
+    MediaPlayer mediaPlayer;
+
+    public  void Play(String path) {
+        if(mediaPlayer==null){
+            mediaPlayer = new MediaPlayer();
+        }
+        try {
+            mediaPlayer.setDataSource(path);
+            mediaPlayer.prepare();
+            mediaPlayer.setLooping(false);
+            mediaPlayer.start();
+            mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                @Override
+                public void onCompletion(MediaPlayer mediaPlayer) {
+//                    iv_voice_playDrawable.stop();
+                    mediaPlayer.reset();
+                }
+            });
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
 }

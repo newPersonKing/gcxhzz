@@ -1,14 +1,17 @@
 package com.whoami.gcxhzz.home3;
 
+import android.Manifest;
 import android.content.Intent;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.Toast;
 
 import com.algorithm.android.utils.AlRecyclerViewDecoration;
 import com.algorithm.progresslayoutlibrary.ProgressLayout;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
+import com.luck.picture.lib.permissions.RxPermissions;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshLoadmoreListener;
@@ -31,6 +34,7 @@ import java.util.List;
 import java.util.Map;
 
 import butterknife.BindView;
+import io.reactivex.functions.Consumer;
 
 /*事件列表*/
 public class MyEventActivity extends BaseTitleActivity{
@@ -96,9 +100,8 @@ public class MyEventActivity extends BaseTitleActivity{
                 helper.itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Intent intent=new Intent(mContext,MyEventDetailsActivity.class);
-                        intent.putExtra("EVENT_ID",item.getEventId());
-                        startActivity(intent);
+                        requestPermissionsEvent(item);
+
                     }
                 });
             }
@@ -186,7 +189,27 @@ public class MyEventActivity extends BaseTitleActivity{
                 progressLayout.showContent();
             }
         });
+    }
+    private RxPermissions rxPermissions;
+    private void requestPermissionsEvent(final EventEntityData item){
+        if(rxPermissions == null){
+            rxPermissions = new RxPermissions(this);
+        }
+        rxPermissions.request(Manifest.permission.READ_EXTERNAL_STORAGE,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                Manifest.permission.ACCESS_FINE_LOCATION,
+                Manifest.permission.ACCESS_COARSE_LOCATION).subscribe(new Consumer<Boolean>() {
+            @Override
+            public void accept(Boolean aBoolean) throws Exception {
+                if(false){
 
+                }else{
+                    Intent intent=new Intent(mContext,MyEventDetailsActivity.class);
+                    intent.putExtra("EVENT_ID",item.getEventId());
+                    startActivity(intent);
+                }
+            }
+        });
     }
 
 }

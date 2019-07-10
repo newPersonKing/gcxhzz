@@ -19,6 +19,7 @@ import com.whoami.gcxhzz.activity.CommonTextActivity;
 import com.whoami.gcxhzz.base.activity.BaseTitleActivity;
 import com.whoami.gcxhzz.base.activity.BaseUploadActivity;
 import com.whoami.gcxhzz.base.app.MyApplication;
+import com.whoami.gcxhzz.entity.CustomLocationMessageEntity;
 import com.whoami.gcxhzz.entity.FileEntity;
 import com.whoami.gcxhzz.entity.FileModuleEntity;
 import com.whoami.gcxhzz.entity.RiverEntity;
@@ -58,6 +59,12 @@ public class MyRecordReportActivity extends BaseUploadActivity {
     ForwardView fv_task_path;
     @BindView(R.id.fv_task_content)
     ForwardView fv_task_content;
+    @BindView(R.id.fv_task_time_range)
+    ForwardView fv_task_time_range;
+    @BindView(R.id.fv_task_time)
+    ForwardView fv_task_time;
+
+
 
     private final int REQUEST_CODE_CONTENT = 0x01;
     private final int REQUEST_CODE_SIGNATURE = 0x02;
@@ -113,6 +120,7 @@ public class MyRecordReportActivity extends BaseUploadActivity {
             fv_task_range.setRightText(Rivers);
         }
 
+
         super.onAddPicHintShowListener = new GridImageAdapter.OnAddPicHintShowListener() {
             @Override
             public void onResume() {
@@ -133,6 +141,21 @@ public class MyRecordReportActivity extends BaseUploadActivity {
         };
         task_rangeSheetDialog = new AlActionSheetDialog(mContext).builder();
         getHDData();
+        setLocationMessage();
+    }
+
+    private void setLocationMessage(){
+        List<CustomLocationMessageEntity> customLocationMessageEntities = ((MyApplication)getApplicationContext()).customLocationMessageEntities;
+        String startTime = customLocationMessageEntities.get(0).getTime();
+        String endTime = customLocationMessageEntities.get(customLocationMessageEntities.size()-1).getTime();
+        String startAdd = customLocationMessageEntities.get(0).getAddress();
+        String endAdd = customLocationMessageEntities.get(customLocationMessageEntities.size()-1).getAddress();
+        startTime = startTime.split(" ")[1];
+        endTime = endTime.split(" ")[1];
+        fv_task_time_range.setRightText(startTime+"-"+endTime);
+        fv_task_path.setRightText(startAdd+"-"+endAdd);
+        fv_task_time.setRightText(DateUtil.getCurDateTime());
+        fv_task_range.setRightText(Rivers);
     }
 
 
@@ -172,6 +195,12 @@ public class MyRecordReportActivity extends BaseUploadActivity {
         String date=DateUtil.dateToDateString(new Date(System.currentTimeMillis()), DateUtil.yyyy_MM_dd_EN);
         map.put("PatrolTime",date);
 
+
+        String patrolTime_quantum = fv_task_time_range.getRightText();
+        map.put("PatrolTimeQuantum",patrolTime_quantum);
+
+        map.put("PatrolTrail",getPointXY());
+
         map.put("problem",fv_task_quesstion.getRightText());
 
         if (fv_task_content.getRightText()!=null){
@@ -202,6 +231,15 @@ public class MyRecordReportActivity extends BaseUploadActivity {
             }
         });
 
+    }
+
+    private  List<String> getPointXY(){
+        List<String> xys = new ArrayList<>();
+        List<CustomLocationMessageEntity> customLocationMessageEntities = ((MyApplication)getApplicationContext()).customLocationMessageEntities;
+        for(CustomLocationMessageEntity customLocationMessageEntity:customLocationMessageEntities){
+            xys.add(customLocationMessageEntity.getX()+","+customLocationMessageEntity.getY());
+        }
+        return xys;
     }
 
     @Override
@@ -242,15 +280,15 @@ public class MyRecordReportActivity extends BaseUploadActivity {
                 startActivityForResult(intent, REQUEST_CODE_CONTENT);
                 break;
             case R.id.fv_task_path:
-                intent.setClass(mContext, CommonTextActivity.class);
-                intent.putExtra(CommonTextActivity.TITLE, "巡河轨迹");
-                intent.putExtra(CommonTextActivity.CONTENT, fv_task_path.getRightText());
-                intent.putExtra(CommonTextActivity.HINT, "请输入巡河轨迹...");
-                intent.putExtra(CommonTextActivity.MAX_NUM, 200);
-                startActivityForResult(intent, REQUEST_CODE_SIGNATURE);
+//                intent.setClass(mContext, CommonTextActivity.class);
+//                intent.putExtra(CommonTextActivity.TITLE, "巡河轨迹");
+//                intent.putExtra(CommonTextActivity.CONTENT, fv_task_path.getRightText());
+//                intent.putExtra(CommonTextActivity.HINT, "请输入巡河轨迹...");
+//                intent.putExtra(CommonTextActivity.MAX_NUM, 200);
+//                startActivityForResult(intent, REQUEST_CODE_SIGNATURE);
                 break;
             case R.id.fv_task_range:
-                task_rangeSheetDialog.show();
+//                task_rangeSheetDialog.show();
                 break;
             case R.id.fv_task_content:
                 intent.setClass(mContext, CommonTextActivity.class);

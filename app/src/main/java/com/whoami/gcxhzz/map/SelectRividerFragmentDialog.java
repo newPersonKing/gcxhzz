@@ -40,6 +40,7 @@ public class SelectRividerFragmentDialog extends DialogFragment {
 
     private CallBackInterFace  callBackInterFace;
     private List<RiverEntity.ContentBean> contentBeans = new ArrayList<>();/*用来保存原始数据*/
+    private RiverEntity.ContentBean contentBean;
     public static SelectRividerFragmentDialog getInstance(){
         SelectRividerFragmentDialog selectRividerFragmentDialog = new SelectRividerFragmentDialog();
         return selectRividerFragmentDialog;
@@ -60,6 +61,8 @@ public class SelectRividerFragmentDialog extends DialogFragment {
 
     private RecyclerView recyclerView;
     private BaseQuickAdapter adapter;
+
+    private String riverName;
     private void initView(View view){
         Button btn_sure = view.findViewById(R.id.btn_sure);
         Button btn_cancle = view.findViewById(R.id.btn_cancle);
@@ -83,14 +86,16 @@ public class SelectRividerFragmentDialog extends DialogFragment {
         btn_cancle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                dismiss();
+                if(callBackInterFace!=null){
+                    callBackInterFace.onClickCancle();
+                }
             }
         });
         btn_sure.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if(callBackInterFace!=null){
-                    callBackInterFace.onClickSure();
+                    callBackInterFace.onClickSure(contentBean);
                 }
             }
         });
@@ -122,6 +127,8 @@ public class SelectRividerFragmentDialog extends DialogFragment {
                 });
             }
         };
+
+
         recyclerView.setAdapter(adapter);
     }
 
@@ -135,6 +142,8 @@ public class SelectRividerFragmentDialog extends DialogFragment {
         for(int i=0;i<data.size();i++){
             if(i==position){
                 data.get(i).setSelect(true);
+                riverName = data.get(i).getName();
+                contentBean = data.get(i);
             }else {
                 data.get(i).setSelect(false);
             }
@@ -189,7 +198,7 @@ public class SelectRividerFragmentDialog extends DialogFragment {
     }
 
     public interface CallBackInterFace{
-        void onClickSure();
+        void onClickSure(RiverEntity.ContentBean contentBean);
         void onClickCancle();
     }
 }

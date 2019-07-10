@@ -1,12 +1,19 @@
 package com.whoami.gcxhzz.map;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.os.Handler;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatImageView;
+import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.baidu.location.BDAbstractLocationListener;
 import com.baidu.location.BDLocation;
@@ -28,7 +35,15 @@ import com.gongwen.marqueen.SimpleMF;
 import com.gongwen.marqueen.SimpleMarqueeView;
 import com.whoami.gcxhzz.R;
 import com.whoami.gcxhzz.base.app.MyApplication;
+import com.whoami.gcxhzz.entity.CustomLocationMessageEntity;
+import com.whoami.gcxhzz.entity.RiverEntity;
+import com.whoami.gcxhzz.home1.MyRecordReportActivity;
+import com.whoami.gcxhzz.recorder.FinishDialogFragment;
+import com.whoami.gcxhzz.until.DateUtil;
+import com.whoami.gcxhzz.until.ObjectUtils;
+import com.whoami.gcxhzz.view.TimeTextView;
 
+import java.sql.Time;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -40,22 +55,43 @@ import java.util.List;
  * @author baidu
  *
  */
-public class LocationActivity extends Activity {
+public class LocationActivity extends AppCompatActivity {
 	private LocationService locationService;
 
 	private MapView mMapView;
 	private AppCompatImageView iv_back;
 	private ImageView iv_down_up;
-    private LinearLayout ll_content;
-    private LinearLayout ll_trans;
+	private LinearLayout ll_content;
+	private LinearLayout ll_trans;
+	private TextView tv_add_record;
+	private Button btn_start_and_pause;
+	private TimeTextView tv_time_change;
 
 	private Polyline mPolyline;
 	private BaiduMap mBaiduMap;
 	private ImageView iv_show;
 	private SimpleMarqueeView simpleMarqueeView;
 	private String preAddress;/*记录上一次定位的详细地址*/
-	private int tag = 0;
+	private int bottom_show_tag = 0;/*控制底部显示与隐藏的标志*/
 	ViewAnimator roteAnimator,tranAnimator;
+
+	private String riverName;/*选择的河流 名称*/
+	private String riverCode;/*河流编码*/
+
+	private int startAndPauseTag = 0;/*控制定位开始与暂停的标志*/
+	Handler timeHandler = new Handler();
+
+	Runnable timeHandlerRun = new Runnable() {
+		@Override
+		public void run() {
+			tv_time_change.setCurrentTime(System.currentTimeMillis());
+			timeHandler.postDelayed(this,500);
+			tv_time_change.setCurrentTime(System.currentTimeMillis());
+		}
+	};
+	/*存储移动点信息*/
+	private List<CustomLocationMessageEntity> customLocationMessageEntities = new ArrayList<>();
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
@@ -70,11 +106,14 @@ public class LocationActivity extends Activity {
 		iv_back.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				finish();
+				showFinishDialog();
 			}
 		});
 		iv_down_up = findViewById(R.id.iv_down_up);
 		simpleMarqueeView = findViewById(R.id.simpleMarqueeView);
+		tv_add_record = findViewById(R.id.tv_add_record);
+		btn_start_and_pause = findViewById(R.id.btn_start_and_pause);
+		tv_time_change = findViewById(R.id.tv_time_change);
 
 		mMapView = findViewById(R.id.mapview);
 		mBaiduMap = mMapView.getMap();
@@ -85,15 +124,16 @@ public class LocationActivity extends Activity {
 		iv_down_up.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-                tag++;
-				if(tag%2 == 0){
+				if(bottom_show_tag == 0){
 					roteAnimator = ViewAnimator.animate(iv_down_up).rotation(180).duration(500).start();
 					tranAnimator = ViewAnimator.animate(ll_content).translationY(ll_trans.getHeight()).duration(500).start();
+					bottom_show_tag =1;
 				}else{
 					iv_down_up.clearAnimation();
 					ll_content.clearAnimation();
 					ViewAnimator.animate(iv_down_up).rotation(0).duration(500).start();
 					ViewAnimator.animate(ll_content).translationY(0).duration(500).start();
+					bottom_show_tag = 0;
 				}
 			}
 		});
@@ -101,11 +141,72 @@ public class LocationActivity extends Activity {
 		iv_show.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				SelectRividerFragmentDialog dialog = new SelectRividerFragmentDialog();
-                dialog.show(getFragmentManager(),LocationActivity.class.getSimpleName());
+				final SelectRividerFragmentDialog dialog = new SelectRividerFragmentDialog();
+
+				dialog.setCallBackInterFace(new SelectRividerFragmentDialog.CallBackInterFace() {
+					@Override
+					public void onClickSure(RiverEntity.ContentBean contentBean) {
+
+						if(ObjectUtils.isNotNull(contentBean)){
+							riverName = contentBean.getName();
+							riverCode = contentBean.getCode();
+							startLocationLoop();
+							btn_start_and_pause.setText("暂停");
+							tv_time_change.setStartTime(System.currentTimeMillis());
+							btn_start_and_pause.setBackgroundResource(R.drawable.back_hollow_circle);
+							startAndPauseTag = 1;/*开始状态*/
+							dialog.dismiss();
+							timeHandler.postDelayed(timeHandlerRun,500);
+							iv_show.setVisibility(View.GONE);
+							btn_start_and_pause.setVisibility(View.VISIBLE);
+						}else{
+							Toast.makeText(LocationActivity.this,"请选择河流",Toast.LENGTH_SHORT).show();
+						}
+					}
+
+					@Override
+					public void onClickCancle() {
+						dialog.dismiss();
+					}
+				});
+
+				dialog.show(getFragmentManager(),LocationActivity.class.getSimpleName());
 			}
 		});
 
+		tv_add_record.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				Intent intent2=new Intent(LocationActivity.this,MyRecordReportActivity.class);
+				intent2.putExtra("TAG","Home1MapFragment");
+				intent2.putExtra("Rivers",riverName);
+				intent2.putExtra("riverCode",riverCode);
+				startActivity(intent2);
+				((MyApplication)getApplicationContext()).customLocationMessageEntities = customLocationMessageEntities;
+			}
+		});
+
+		/*点击开始 或者暂停*/
+		btn_start_and_pause.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				if(startAndPauseTag == 1){
+					btn_start_and_pause.setText("开始");
+					btn_start_and_pause.setBackgroundResource(R.drawable.back_hollow_circle_blue);
+					startAndPauseTag = 2;/**/
+					tv_time_change.setPauseTime(System.currentTimeMillis());
+					timeHandler.removeCallbacks(timeHandlerRun);
+				}else if(startAndPauseTag == 2){
+					/*暂停状态*/
+					startLocationLoop();
+					startAndPauseTag=1;
+					btn_start_and_pause.setText("暂停");
+					btn_start_and_pause.setBackgroundResource(R.drawable.back_hollow_circle);
+					tv_time_change.setStartTime(System.currentTimeMillis());
+					timeHandler.postDelayed(timeHandlerRun,500);
+				}
+			}
+		});
 	}
 
 
@@ -157,23 +258,36 @@ public class LocationActivity extends Activity {
 	@Override
 	protected void onStart() {
 		super.onStart();
+		startLocation();
+	}
+
+	private void startLocation(){
 		// -----------location config ------------
 		locationService = ((MyApplication) getApplication()).locationService;
 		//获取locationservice实例，建议应用中只初始化1个location实例，然后使用，可以参考其他示例的activity，都是通过此种方式获取locationservice实例的
 		locationService.registerListener(mListener);
 		//注册监听
-		int type = getIntent().getIntExtra("from", 0);
-		if (type == 0) {
-			locationService.setLocationOption(locationService.getDefaultLocationClientOption());
-		} else if (type == 1) {
-			locationService.setLocationOption(locationService.getOption());
-		}
-
+		locationService.getDefaultLocationClientOption().setScanSpan(0);
+		locationService.setLocationOption(locationService.getDefaultLocationClientOption());
 		locationService.start();
 	}
 
+	private void startLocationLoop(){
+		if(locationService.isStart()){
+//			locationService.stop();
+			locationService.unregisterListener(mListener);
+		}
+		// -----------location config ------------
+		locationService = ((MyApplication) getApplication()).locationService;
+		//获取locationservice实例，建议应用中只初始化1个location实例，然后使用，可以参考其他示例的activity，都是通过此种方式获取locationservice实例的
+		locationService.registerListener(mListener);
+		//注册监听
+		locationService.getDefaultLocationClientOption().setScanSpan(2000);
+		locationService.setLocationOption(locationService.getDefaultLocationClientOption());
+		locationService.restart();
+	}
 
-	private Boolean isFirstLoc = true;
+
 	/*****
 	 *
 	 * 定位结果回调，重写onReceiveLocation方法，可以直接拷贝如下代码到自己工程中修改
@@ -188,7 +302,7 @@ public class LocationActivity extends Activity {
 			if (location == null || mMapView == null) {
 				return;
 			}
-
+			Log.i("ccccccccccccc","定位返回结果了");
 			/*地址改变 再切换*/
 			String currentAddress = location.getAddrStr();
 			if(!currentAddress.equals(preAddress)){
@@ -205,21 +319,17 @@ public class LocationActivity extends Activity {
 				marqueeFactory.setData(simpleData);
 				simpleMarqueeView.setMarqueeFactory(marqueeFactory);
 				simpleMarqueeView.startFlipping();
-			}
-			;
-			//选一个精度相对较高的起始点
-//					ll = getMostAccuracyLocation(location);
-//					Log.i("cccccccccccc","ll====="+ll);
-//					if(ll == null){
-//						return;
-//					}
+			};
+
 			LatLng current = new LatLng(location.getLatitude(),location.getLongitude());
 			if(points.size() == 0){
 				points.add(current);
+				addPoints(location);
 			}else{
 				LatLng last = points.get(points.size()-1);
-				if(DistanceUtil.getDistance(last, current ) > 5){
+				if(DistanceUtil.getDistance(last, current ) > 1){
 					points.add(current);
+					addPoints(location);
 				}else{
 					return;
 				}
@@ -228,7 +338,7 @@ public class LocationActivity extends Activity {
 			//清除上一次轨迹，避免重叠绘画
 			mMapView.getMap().clear();
 
-			//显示当前定位点，缩放地图
+			//显示当前定位点，缩放地图 一直定位到当前点
 			locateAndZoom(location, points.get(0));
 
 			//起始点 设置 开始图标
@@ -274,4 +384,45 @@ public class LocationActivity extends Activity {
 		mBaiduMap.animateMapStatus(MapStatusUpdateFactory.newMapStatus(builder.build()));
 	}
 
+	private void addPoints(BDLocation location){
+		CustomLocationMessageEntity customLocationMessageEntity = new CustomLocationMessageEntity();
+
+		customLocationMessageEntity.setX(location.getLatitude());
+		customLocationMessageEntity.setY(location.getLongitude());
+		customLocationMessageEntity.setTime(DateUtil.getCurDateTime());
+		customLocationMessageEntity.setAddress(location.getAddrStr());
+
+		customLocationMessageEntities.add(customLocationMessageEntity);
+	}
+
+	@Override
+	public void onBackPressed() {
+		showFinishDialog();
+	}
+
+	private FinishDialogFragment finishDialogFragment;
+	private void showFinishDialog(){
+		if(finishDialogFragment == null){
+			finishDialogFragment = new FinishDialogFragment();
+		}
+		finishDialogFragment.setCallBacl(new FinishDialogFragment.CallBack() {
+			@Override
+			public void onClickSure() {
+				finishDialogFragment.dismiss();
+				finish();
+			}
+
+			@Override
+			public void onClickCancle() {
+				finishDialogFragment.dismiss();
+			}
+		});
+		finishDialogFragment.show(getSupportFragmentManager(),LocationActivity.class.getSimpleName());
+	}
+
+	@Override
+	protected void onDestroy() {
+		super.onDestroy();
+		timeHandler.removeCallbacks(timeHandlerRun);
+	}
 }
