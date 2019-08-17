@@ -55,10 +55,6 @@ public class TimeTextView extends AppCompatTextView {
          timeRange = currentTime - startTime;
         }
         setText(formatDuring(timeRange+totalTime));
-        Log.i("cccccccccccccc","timeRange=="+timeRange);
-        Log.i("cccccccccccccc","totalTime=="+totalTime);
-        Log.i("cccccccccccccc","startTime=="+startTime);
-        Log.i("cccccccccccccc","currentTime=="+currentTime);
     }
 
     private  String formatDuring(long mss) {
@@ -68,7 +64,6 @@ public class TimeTextView extends AppCompatTextView {
 
         String resut = changeText(hours+"") + " : " + changeText(minutes+"") + " : "
                 + changeText(seconds+"");
-        Log.i("cccccccccc","seconds=="+resut);
         return  resut;
     }
 

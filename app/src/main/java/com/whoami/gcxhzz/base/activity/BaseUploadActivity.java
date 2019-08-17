@@ -3,6 +3,7 @@ package com.whoami.gcxhzz.base.activity;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 
 
 import com.luck.picture.lib.PictureSelector;
@@ -320,9 +321,27 @@ public abstract class BaseUploadActivity extends BaseTitleActivity {
 
         if(!ObjectUtils.isNull(voice_path)){
             paths.add(voice_path);
+            File voiceFile = new File(voice_path);
+            if(voiceFile.exists()){
+                long size = voiceFile.length();
+                if(size>50*1024*1024){
+                    Toast.makeText(this,"录音文件不能大于50M",Toast.LENGTH_SHORT).show();
+                    return;
+                }
+            }
         }
 
         if(videoLocalMedia!=null){
+
+            File videoFile = new File(videoLocalMedia.getPath());
+            if(videoFile.exists()){
+                long size = videoFile.length();
+                if(size > 50*1024*1024){
+                    Toast.makeText(this,"视频文件不能大于50M",Toast.LENGTH_SHORT).show();
+                    return;
+                }
+            }
+
             paths.add(videoLocalMedia.getPath());
         }
 

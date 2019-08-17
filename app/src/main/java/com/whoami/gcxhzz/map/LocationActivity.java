@@ -41,11 +41,14 @@ import com.whoami.gcxhzz.home1.MyRecordReportActivity;
 import com.whoami.gcxhzz.recorder.FinishDialogFragment;
 import com.whoami.gcxhzz.until.DateUtil;
 import com.whoami.gcxhzz.until.ObjectUtils;
+import com.whoami.gcxhzz.until.SoundPoolUtil;
 import com.whoami.gcxhzz.view.TimeTextView;
 
 import java.sql.Time;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /***
  * 单点定位示例，用来展示基本的定位结果，配置在LocationService.java中
@@ -84,7 +87,6 @@ public class LocationActivity extends AppCompatActivity {
 	Runnable timeHandlerRun = new Runnable() {
 		@Override
 		public void run() {
-			tv_time_change.setCurrentTime(System.currentTimeMillis());
 			timeHandler.postDelayed(this,500);
 			tv_time_change.setCurrentTime(System.currentTimeMillis());
 		}
@@ -92,12 +94,17 @@ public class LocationActivity extends AppCompatActivity {
 	/*存储移动点信息*/
 	private List<CustomLocationMessageEntity> customLocationMessageEntities = new ArrayList<>();
 
+	private boolean isStart = false;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		// -----------demo view config ------------
 		setContentView(R.layout.location);
+
+		/*从巡河任务过来 走这里*/
+		beforeCreateView();
 
 		iv_show = findViewById(R.id.iv_show);
 		ll_content = findViewById(R.id.ll_content);
@@ -148,6 +155,7 @@ public class LocationActivity extends AppCompatActivity {
 					public void onClickSure(RiverEntity.ContentBean contentBean) {
 
 						if(ObjectUtils.isNotNull(contentBean)){
+							isStart = true;
 							riverName = contentBean.getName();
 							riverCode = contentBean.getCode();
 							startLocationLoop();
@@ -159,6 +167,7 @@ public class LocationActivity extends AppCompatActivity {
 							timeHandler.postDelayed(timeHandlerRun,500);
 							iv_show.setVisibility(View.GONE);
 							btn_start_and_pause.setVisibility(View.VISIBLE);
+							SoundPoolUtil.getInstance().play(LocationActivity.this,R.raw.start);
 						}else{
 							Toast.makeText(LocationActivity.this,"请选择河流",Toast.LENGTH_SHORT).show();
 						}
@@ -177,11 +186,22 @@ public class LocationActivity extends AppCompatActivity {
 		tv_add_record.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
+
+				if(!isStart){
+					Toast.makeText(LocationActivity.this,"请先开始巡河",Toast.LENGTH_SHORT).show();
+					return;
+				}
+
+				if(customLocationMessageEntities.size() == 0){
+					Toast.makeText(LocationActivity.this,"巡河路径太短",Toast.LENGTH_SHORT).show();
+					return;
+				}
 				Intent intent2=new Intent(LocationActivity.this,MyRecordReportActivity.class);
-				intent2.putExtra("TAG","Home1MapFragment");
+				intent2.putExtra("TAG",TAG);
 				intent2.putExtra("Rivers",riverName);
 				intent2.putExtra("riverCode",riverCode);
-				startActivity(intent2);
+				intent2.putExtra("TaskCode",TaskCode);
+				startActivityForResult(intent2,200);
 				((MyApplication)getApplicationContext()).customLocationMessageEntities = customLocationMessageEntities;
 			}
 		});
@@ -207,8 +227,25 @@ public class LocationActivity extends AppCompatActivity {
 				}
 			}
 		});
+
+		LocationStart();
 	}
 
+
+	private int state;/*0 未处理 10 处理完成*/
+	private int TaskCode;
+
+	private String name;/*todo 巡河任务名称 只是显示 没有使用这个字段 todo*/
+	private String TAG;
+	/*走巡河任务 会携带一些数据过来*/
+	private void beforeCreateView(){
+		riverName= getIntent().getStringExtra("Rivers");
+		riverCode=getIntent().getStringExtra("riverCode");
+		state=getIntent().getIntExtra("State",-1);
+		TaskCode=getIntent().getIntExtra("TaskCode",-1);
+		name=getIntent().getStringExtra("name");
+		TAG=getIntent().getStringExtra("TAG");
+	}
 
 	private float mCurrentZoom = 18;
 	/*动态绘制移动路线*/
@@ -229,7 +266,6 @@ public class LocationActivity extends AppCompatActivity {
 
 			@Override
 			public void onMapStatusChange(MapStatus mapStatus) {
-
 			}
 
 			@Override
@@ -245,23 +281,26 @@ public class LocationActivity extends AppCompatActivity {
 
 
 
-	/***
-	 * Stop location service
-	 */
-	@Override
-	protected void onStop() {
-		locationService.unregisterListener(mListener); //注销掉监听
-		locationService.stop(); //停止定位服务
-		super.onStop();
-	}
-
-	@Override
-	protected void onStart() {
-		super.onStart();
-		startLocation();
+	private void LocationStart(){
+		/*如果从巡河任务*/
+		if(TAG.equals("TASK")){
+			iv_show.setVisibility(View.GONE);
+			isStart = true;
+			startLocationLoop();
+			btn_start_and_pause.setText("暂停");
+			tv_time_change.setStartTime(System.currentTimeMillis());
+			btn_start_and_pause.setBackgroundResource(R.drawable.back_hollow_circle);
+			startAndPauseTag = 1;/*开始状态*/
+			timeHandler.postDelayed(timeHandlerRun,500);
+			iv_show.setVisibility(View.GONE);
+			btn_start_and_pause.setVisibility(View.VISIBLE);
+		}else if(TAG.equals("Home1MapFragment")){
+			startLocation();;
+		}
 	}
 
 	private void startLocation(){
+	    Log.i("cccccccccccc","startLocation");
 		// -----------location config ------------
 		locationService = ((MyApplication) getApplication()).locationService;
 		//获取locationservice实例，建议应用中只初始化1个location实例，然后使用，可以参考其他示例的activity，都是通过此种方式获取locationservice实例的
@@ -273,7 +312,7 @@ public class LocationActivity extends AppCompatActivity {
 	}
 
 	private void startLocationLoop(){
-		if(locationService.isStart()){
+		if(locationService!=null&&locationService.isStart()){
 //			locationService.stop();
 			locationService.unregisterListener(mListener);
 		}
@@ -284,7 +323,11 @@ public class LocationActivity extends AppCompatActivity {
 		//注册监听
 		locationService.getDefaultLocationClientOption().setScanSpan(2000);
 		locationService.setLocationOption(locationService.getDefaultLocationClientOption());
-		locationService.restart();
+		if(locationService!=null&&locationService.isStart()){
+			locationService.restart();
+		}else{
+			locationService.start();
+		}
 	}
 
 
@@ -323,9 +366,16 @@ public class LocationActivity extends AppCompatActivity {
 
 			LatLng current = new LatLng(location.getLatitude(),location.getLongitude());
 			if(points.size() == 0){
+                /*第一个点 是 进入页面 定位的第一个点 不一定是开始巡河的第一个点*/
 				points.add(current);
 				addPoints(location);
+
 			}else{
+				if(location.getLocType() != BDLocation.TypeGpsLocation){
+					Log.i("cccccccccccc","不是GPS点"+location.getLocType());
+                  return;
+				}
+				Log.i("cccccccccccc","是GPS点"+System.currentTimeMillis());
 				LatLng last = points.get(points.size()-1);
 				if(DistanceUtil.getDistance(last, current ) > 1){
 					points.add(current);
@@ -339,7 +389,7 @@ public class LocationActivity extends AppCompatActivity {
 			mMapView.getMap().clear();
 
 			//显示当前定位点，缩放地图 一直定位到当前点
-			locateAndZoom(location, points.get(0));
+			locateAndZoom(location, points.get(points.size()-1));
 
 			//起始点 设置 开始图标
 			MarkerOptions oStart = new MarkerOptions();// 地图标记覆盖物参数配置类
@@ -424,5 +474,17 @@ public class LocationActivity extends AppCompatActivity {
 	protected void onDestroy() {
 		super.onDestroy();
 		timeHandler.removeCallbacks(timeHandlerRun);
+		((MyApplication)getApplicationContext()).customLocationMessageEntities = null;
+		locationService.unregisterListener(mListener); //注销掉监听
+		locationService.stop(); //停止定位服务
+		customLocationMessageEntities.clear();
+	}
+
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		super.onActivityResult(requestCode, resultCode, data);
+		if(requestCode == 200 && resultCode == 300){
+			finish();
+		}
 	}
 }

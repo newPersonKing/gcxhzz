@@ -19,6 +19,7 @@ import com.whoami.gcxhzz.entity.TaskEntityData;
 import com.whoami.gcxhzz.home1.MyRecordReportActivity;
 import com.whoami.gcxhzz.http.HttpRequestUtils;
 import com.whoami.gcxhzz.http.HttpService;
+import com.whoami.gcxhzz.map.LocationActivity;
 import com.whoami.gcxhzz.until.BaseUtils;
 import com.whoami.gcxhzz.until.ObjectUtils;
 
@@ -166,14 +167,31 @@ public class MyTaskDetailsActivity extends BaseTitleActivity {
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.btn_add_my_record:
-                Intent intent=new Intent(this, MyRecordReportActivity.class);
+//                Intent intent=new Intent(this, MyRecordReportActivity.class);
+//                TaskEntityData data=taskDetailEntity.getContent();
+//                intent.putExtra("Rivers",data.getRivers());
+//                intent.putExtra("State",data.getState());
+//                intent.putExtra("TaskCode",data.getCode());
+//                intent.putExtra("content",data.getContent());
+//                intent.putExtra("name",data.getName());
+//                intent.putExtra("riverCode",data.getRiversId()+"");
+//                startActivity(intent);
                 TaskEntityData data=taskDetailEntity.getContent();
-                intent.putExtra("Rivers",data.getRivers());
-                intent.putExtra("State",data.getState());
-                intent.putExtra("TaskCode",data.getCode());
-                intent.putExtra("content",data.getContent());
-                intent.putExtra("name",data.getName());
-                intent.putExtra("riverCode",data.getRiversId()+"");
+                Intent intent = new Intent();
+                if(taskDetailEntity.getContent().getState() == 3){
+                    /*这里跳转巡河日志页面*/
+                    intent.putExtra("RECORD_ID",data.getPatroLogCode());
+                    intent.setClass(this,MyRecordDetailsActivity.class);
+                }else{
+                    intent.setClass(this,LocationActivity.class);
+                    intent.putExtra("Rivers",data.getRivers());
+                    intent.putExtra("State",data.getState());
+                    intent.putExtra("TaskCode",data.getCode());
+                    intent.putExtra("content",data.getContent());
+                    intent.putExtra("name",data.getName());
+                    intent.putExtra("riverCode",data.getRiversId()+"");
+                    intent.putExtra("TAG","TASK");
+                }
                 startActivity(intent);
         }
     }

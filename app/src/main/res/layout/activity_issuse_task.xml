@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
+
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:focusable="true"
+            android:focusableInTouchMode="true">
+
+            <include layout="@layout/include_title_layout"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_45"
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
+
+                <TextView
+                    android:id="@+id/tv_left"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/view_margin"
+                    android:textColor="#222222"
+                    android:textSize="15sp"
+                    android:text="任务名称"/>
+
+                <EditText
+                    android:id="@+id/et_task_name"
+                    android:layout_weight="1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/shape_border_without_corner"
+                    android:layout_marginLeft="@dimen/dp_10"
+                    android:layout_marginRight="@dimen/dp_10"/>
+
+            </LinearLayout>
+
+            <View style="@style/LineH"/>
+
+            <com.algorithm.android.widget.item.ForwardView
+                android:id="@+id/fv_task_type"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:algorithmLeftText="任务类型"
+                app:algorithmRightText="必填"/>
+
+            <View style="@style/LineH"/>
+
+            <com.algorithm.android.widget.item.ForwardView
+                android:id="@+id/fv_task_urgency"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:algorithmLeftText="紧急程度"
+                app:algorithmRightText="必填"/>
+
+            <View style="@style/LineH"/>
+
+            <com.algorithm.android.widget.item.ForwardView
+                android:id="@+id/fv_task_source"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:algorithmLeftText="任务来源"
+                app:algorithmRightText="必填"/>
+
+
+            <View style="@style/LineH"/>
+
+            <com.algorithm.android.widget.item.ForwardView
+                android:id="@+id/fv_task_range"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:algorithmLeftText="巡河范围"
+                app:algorithmRightText="必填"/>
+
+            <View style="@style/LineH"/>
+
+            <com.algorithm.android.widget.item.ForwardView
+                android:id="@+id/fv_task_people"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:algorithmLeftText="巡河人员"
+                app:algorithmRightText="必填"/>
+
+            <View style="@style/LineH"/>
+
+            <com.algorithm.android.widget.item.ForwardView
+                android:id="@+id/fv_task_time"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:algorithmLeftText="巡河日期"
+                app:algorithmRightText="必填"/>
+
+            <View style="@style/LineH"/>
+
+            <com.algorithm.android.widget.item.ForwardView
+                android:id="@+id/fv_task_content"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:algorithmLeftText="巡河内容"
+                app:algorithmRightText="必填"/>
+
+            <View style="@style/LineH"/>
+
+        </LinearLayout>
+    </android.support.v4.widget.NestedScrollView>
+
+    <Button
+        android:id="@+id/btn_commit"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/theme_color"
+        android:text="提交"
+        android:textColor="@android:color/white"
+        android:textSize="17sp"
+        android:elevation="8dp"/>
+
+</LinearLayout>

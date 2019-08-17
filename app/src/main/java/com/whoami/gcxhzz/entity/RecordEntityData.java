@@ -28,6 +28,11 @@ public class RecordEntityData {
     private String userName;
     private String CreateTime;
     private int State;
+
+    private String AudioUrl;/*录音*/
+
+    private String VideoUrl;/*录制视频*/
+
     private List<FileContent> Files;
 
     public int getCode() {
@@ -116,6 +121,22 @@ public class RecordEntityData {
 
     public void setFiles(List<FileContent> files) {
         Files = files;
+    }
+
+    public String getAudioUrl() {
+        return AudioUrl;
+    }
+
+    public void setAudioUrl(String audioUrl) {
+        AudioUrl = audioUrl;
+    }
+
+    public String getVideoUrl() {
+        return VideoUrl;
+    }
+
+    public void setVideoUrl(String videoUrl) {
+        VideoUrl = videoUrl;
     }
 
     public static class FileContent{

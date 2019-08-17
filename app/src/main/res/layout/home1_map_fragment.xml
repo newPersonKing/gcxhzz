@@ -54,17 +54,43 @@
             android:background="@drawable/back_corner"
             android:paddingTop="@dimen/dp_5"
             android:textColor="#666666"
-            android:textSize="14sp"/>
+            android:textSize="14sp"
+            android:layout_marginBottom="@dimen/dp_20"/>
+
+
+        <Button
+            android:id="@+id/btn_task"
+            android:layout_width="65dp"
+            android:layout_height="65dp"
+            android:text="巡河任务"
+            android:drawableTop="@mipmap/sy_record"
+            android:background="@drawable/back_corner"
+            android:paddingTop="@dimen/dp_5"
+            android:textColor="#666666"
+            android:textSize="14sp"
+            android:layout_marginBottom="@dimen/dp_20"/>
+
+        <Button
+            android:id="@+id/btn_task_issue"
+            android:layout_width="65dp"
+            android:layout_height="65dp"
+            android:text="任务下发"
+            android:drawableTop="@mipmap/task_issue"
+            android:background="@drawable/back_corner"
+            android:paddingTop="@dimen/dp_5"
+            android:textColor="#666666"
+            android:textSize="14sp"
+            android:visibility="gone"/>
 
 
     </LinearLayout>
 
-    <Button
-        android:id="@+id/btn_go_map"
+    <android.support.v7.widget.AppCompatImageView
+        android:id="@+id/iv_go_map"
         android:layout_width="65dp"
         android:layout_height="65dp"
-        android:background="@drawable/foot"
-        android:layout_alignParentRight="true"
+        android:background="@drawable/foot_flare"
+        android:layout_centerHorizontal="true"
         android:layout_alignParentBottom="true"
         android:layout_marginRight="@dimen/dp_20"
         android:layout_marginBottom="@dimen/dp_20"/>

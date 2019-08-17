@@ -12,6 +12,7 @@ import java.util.Map;
 public class HttpRequestUtils {
 
 
+//    public static final String HOST_URL = "http://111.12.253.86:18181";
     public static final String HOST_URL = "http://222.128.113.192:18181";
 
     private static final int COTTECT_TIME_OUT = 30;

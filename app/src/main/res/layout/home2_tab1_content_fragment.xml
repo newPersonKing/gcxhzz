@@ -5,6 +5,17 @@
     android:orientation="vertical"
     android:paddingLeft="@dimen/dp_15">
 
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <TextView
+            android:id="@+id/tv_content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:textSize="@dimen/text_size_16sp"/>
+    </android.support.v4.widget.NestedScrollView>
+
+
     <TextView
         android:id="@+id/qsksl"
         android:layout_width="match_parent"

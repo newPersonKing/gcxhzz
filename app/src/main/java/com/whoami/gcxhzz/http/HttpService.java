@@ -34,5 +34,13 @@ public interface HttpService {
     /*获取河流动态信息*/
     String API_INFORMATION_GET="Api/Information/Get";
 
+    /*判断当前登录用户 是否有 下发任务的权限*/
+    String CHECK_HAS_TASK= "api/Account/CheckHasTask";
+
+    /*下发任务接口*/
+    String ADD_TASK = "api/Task/Add";
+
+    /*获取巡河人员*/
+    String GET_USER_LIST = "api/Task/GetUserList";
 
 }

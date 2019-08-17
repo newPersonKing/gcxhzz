@@ -62,6 +62,8 @@ dependencies {
     implementation files('libs/IndoorscapeAlbumPlugin.jar')
     implementation 'com.android.support:multidex:1.0.1'
     implementation project(':marqueelibrary')
-
     implementation 'com.github.florent37:viewanimator:1.1.0'
+    /*时间选择器*/
+    implementation 'com.contrarywind:Android-PickerView:4.1.8'
+    implementation project(':updateapputils')
 }

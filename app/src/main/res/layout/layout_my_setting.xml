@@ -47,6 +47,15 @@
     <com.whoami.gcxhzz.view.MyLineView
         style="@style/LineH" />
 
+    <com.algorithm.android.widget.item.ForwardView
+        android:id="@+id/fv_check_version"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        app:algorithmLeftText="版本更新"/>
+
+    <com.whoami.gcxhzz.view.MyLineView
+        style="@style/LineH" />
+
 
     <Button
         android:id="@+id/btn_login_out"

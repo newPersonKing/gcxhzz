@@ -45,7 +45,7 @@
             android:button="@null"
             android:drawableTop="@drawable/selector_home_tab2"
             android:gravity="center"
-            android:text="动态数据"
+            android:text="一河一策"
             android:textColor="@drawable/home_tab_color"
             android:textSize="10sp"
             android:background="@android:color/white"/>

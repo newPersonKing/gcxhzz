@@ -32,6 +32,8 @@ public class TabContent3Fragment extends BaseFragment {
     TextView gjzdstgnqsl;
     @BindView(R.id.zdfjmsqsl)
     TextView zdfjmsqsl;
+    @BindView(R.id.tv_content)
+    TextView tv_content;
 
     public static TabContent3Fragment newInstance(){
         return new TabContent3Fragment();
@@ -57,6 +59,35 @@ public class TabContent3Fragment extends BaseFragment {
                 gjzdstgnqsl.setText(getResources().getString(R.string.gjzdstgnqsl,data.getC4V04()+""));
                 zdfjmsqsl.setText(getResources().getString(R.string.zdfjmsqsl,data.getC4V05()+""));
 
+            }
+        });
+
+        RxBus.getDefault().toObservable(String.class).subscribe(new Action1<String>() {
+            @Override
+            public void call(String str) {
+                switch (str){
+                    case "1":
+                        tv_content.setText(getString(R.string.A3));
+                        break;
+                    case "2":
+                        tv_content.setText(getString(R.string.B3));
+                        break;
+                    case "3":
+                        tv_content.setText(getString(R.string.C3));
+                        break;
+                    case "4":
+                        tv_content.setText(getString(R.string.D3));
+                        break;
+                    case "5":
+                        tv_content.setText(getString(R.string.E3));
+                        break;
+                    case "6":
+                        tv_content.setText(getString(R.string.F3));
+                        break;
+                    case "7":
+                        tv_content.setText(getString(R.string.G3));
+                        break;
+                }
             }
         });
     }

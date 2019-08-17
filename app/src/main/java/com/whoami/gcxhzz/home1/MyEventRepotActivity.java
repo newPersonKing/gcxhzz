@@ -77,15 +77,12 @@ public class MyEventRepotActivity extends BaseUploadActivity {
     TextView tv_voice_length;
     @BindView(R.id.ll_voice_play)
     LinearLayout ll_voice_play;
-    @BindView(R.id.iv_recording)
-    ImageView iv_recording;
     @BindView(R.id.btn_voice_click)
     TextView btn_voice_click;
     @BindView(R.id.iv_video_play)
     ImageView iv_video_play;
 
     AnimationDrawable iv_voice_playDrawable;
-    AnimationDrawable iv_record_playDrawable;
     private AlActionSheetDialog event_urgencySheetDialog;
     private AlActionSheetDialog event_sourceSheetDialog;
     private AlActionSheetDialog task_rangeSheetDialog;
@@ -192,7 +189,6 @@ public class MyEventRepotActivity extends BaseUploadActivity {
         task_rangeSheetDialog = new AlActionSheetDialog(mContext).builder();
 
         iv_voice_playDrawable = (AnimationDrawable) iv_voice_play.getDrawable();
-        iv_record_playDrawable = (AnimationDrawable) iv_recording.getDrawable();
 
 
         getHDData();
@@ -272,7 +268,7 @@ public class MyEventRepotActivity extends BaseUploadActivity {
                 intent.putExtra(CommonTextActivity.TITLE, "事件名称");
                 intent.putExtra(CommonTextActivity.CONTENT, fv_event_content.getRightText());
                 intent.putExtra(CommonTextActivity.HINT, "请输入事件名称...");
-                intent.putExtra(CommonTextActivity.MAX_NUM, 45);
+                intent.putExtra(CommonTextActivity.MAX_NUM, 200);
                 startActivityForResult(intent, REQUEST_CODE_NAME);
                 break;
             case R.id.btn_voice_click:

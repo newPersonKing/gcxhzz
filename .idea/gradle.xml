@@ -19,6 +19,7 @@
             <option value="$PROJECT_DIR$/mywidget" />
             <option value="$PROJECT_DIR$/nucrop" />
             <option value="$PROJECT_DIR$/pictureandrecorder" />
+            <option value="$PROJECT_DIR$/updateapputils" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />

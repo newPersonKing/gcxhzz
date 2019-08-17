@@ -81,6 +81,30 @@
 
                 </LinearLayout>
 
+                <!--河流名称：-->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/space">
+
+                    <TextView
+                        style="@style/TextViewLine1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="河流名称："
+                        android:textColor="@color/font_999999"
+                        android:textSize="15sp" />
+
+                    <TextView
+                        android:id="@+id/tv_river_name"
+                        style="@style/TextViewLine1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/font_222222"
+                        android:textSize="15sp" />
+
+                </LinearLayout>
+
 
                 <!--上报时间：2018-05-20-->
                 <LinearLayout
@@ -160,7 +184,8 @@
                     android:padding="0dp"
                     android:text="视频播放"
                     android:textColor="@color/white"
-                    android:textSize="@dimen/text_size_17sp" />
+                    android:textSize="@dimen/text_size_17sp"
+                    android:visibility="gone"/>
 
 
                 <com.whoami.gcxhzz.view.MyLineView style="@style/LineH"/>

@@ -5,6 +5,9 @@ import android.Manifest;
 import android.content.Intent;
 
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.AnimationDrawable;
+import android.support.v7.widget.AppCompatImageView;
+import android.util.JsonReader;
 import android.util.Log;
 import android.view.View;
 
@@ -32,12 +35,25 @@ import com.baidu.mapapi.model.LatLng;
 import com.baidu.mapapi.utils.DistanceUtil;
 import com.gongwen.marqueen.SimpleMF;
 import com.luck.picture.lib.permissions.RxPermissions;
+import com.tamic.novate.Novate;
+import com.tamic.novate.Throwable;
+import com.tamic.novate.callback.RxStringCallback;
 import com.whoami.gcxhzz.R;
 import com.whoami.gcxhzz.base.fragment.BaseFragment;
+import com.whoami.gcxhzz.home3.MyRecordActivity;
+import com.whoami.gcxhzz.home3.MyTaskActivity;
+import com.whoami.gcxhzz.http.HttpRequestUtils;
+import com.whoami.gcxhzz.http.HttpService;
 import com.whoami.gcxhzz.map.LocationActivity;
+import com.whoami.gcxhzz.until.BaseUtils;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -54,8 +70,10 @@ public class Home1MapFragment extends BaseFragment {
     Button btn_record;
     @BindView(R.id.btn_event)
     Button btn_event;
-    @BindView(R.id.btn_go_map)
-    Button btn_go_map;
+    @BindView(R.id.iv_go_map)
+    AppCompatImageView iv_go_map;
+    @BindView(R.id.btn_task_issue)
+    Button btn_task_issue;
 
     //    @BindView(R.id.forum_context)
 //    com.tencent.smtt.sdk.WebView forum_context;
@@ -84,6 +102,10 @@ public class Home1MapFragment extends BaseFragment {
 //        forum_context.getSettings().setUseWideViewPort(true); //自适应屏幕
 //        forum_context.loadUrl("http://office.leshuiiwater.com:18181/gisroot");
         requestPermissionsHome();
+
+        AnimationDrawable animationDrawable = (AnimationDrawable) iv_go_map.getBackground();
+        animationDrawable.start();
+
     }
     private LocationClientOption mOption;
     private LocationClient client = null;
@@ -111,6 +133,7 @@ public class Home1MapFragment extends BaseFragment {
         if(client!=null){
             client.restart();
         }
+        checkHasTask();
     }
 
     @Override
@@ -189,22 +212,44 @@ public class Home1MapFragment extends BaseFragment {
     @OnClick({
             R.id.btn_event,
             R.id.btn_record,
-            R.id.btn_go_map
+            R.id.iv_go_map,
+            R.id.btn_task,
+            R.id.btn_task_issue
     })
     @Override
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.btn_event:
-                Intent intent1=new Intent(mContext,MyEventRepotActivity.class);
-                startActivity(intent1);
+                if (mApplication.isLogin()){
+                    Intent intent1=new Intent(mContext,MyEventRepotActivity.class);
+                    startActivity(intent1);
+                }else{
+                    BaseUtils.gotoLogin();
+                }
                 break;
             case R.id.btn_record:
                 Intent intent2=new Intent(mContext,MyRecordReportActivity.class);
                 intent2.putExtra("TAG","Home1MapFragment");
                 startActivity(intent2);
                 break;
-            case R.id.btn_go_map:
-                requestPermissions();
+            case R.id.iv_go_map:
+                if (mApplication.isLogin()){
+                    requestPermissions();
+                }else{
+                    BaseUtils.gotoLogin();
+                }
+                break;
+            case R.id.btn_task:
+                if (mApplication.isLogin()){
+                    Intent intent=new Intent(mContext, MyTaskActivity.class);
+                    startActivity(intent);
+                }else{
+                    BaseUtils.gotoLogin();
+                }
+                break;
+            case R.id.btn_task_issue:
+                Intent intent = new Intent(mContext,IssuseTaskActivity.class);
+                startActivity(intent);
                 break;
         }
     }
@@ -220,8 +265,9 @@ public class Home1MapFragment extends BaseFragment {
             @Override
             public void accept(Boolean aBoolean) throws Exception {
                 if(aBoolean){
-                    Intent intent3 = new Intent(mContext,LocationActivity.class);
-                    startActivity(intent3);
+                    Intent locationIntent = new Intent(mContext,LocationActivity.class);
+                    locationIntent.putExtra("TAG","Home1MapFragment");
+                    startActivity(locationIntent);
                 }
             }
         });
@@ -245,6 +291,36 @@ public class Home1MapFragment extends BaseFragment {
                 }
             }
         });
+    }
+
+    private void checkHasTask(){
+        Map<String,Object> map = new HashMap<>();
+        HttpRequestUtils.getInstance().getNovate().rxBody(HttpService.CHECK_HAS_TASK, map, new RxStringCallback() {
+            @Override
+            public void onNext(Object tag, String response) {
+                JSONObject jsonObject = null;
+                try {
+                    jsonObject = new JSONObject(response);
+                    JSONObject content = jsonObject.getJSONObject("content");
+                    boolean isHas = content.optBoolean("isTaskHas");
+                    btn_task_issue.setVisibility(isHas ? View.VISIBLE : View.GONE);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            }
+
+            @Override
+            public void onError(Object tag, Throwable e) {
+
+            }
+
+            @Override
+            public void onCancel(Object tag, Throwable e) {
+
+            }
+        });
+
     }
 
 }

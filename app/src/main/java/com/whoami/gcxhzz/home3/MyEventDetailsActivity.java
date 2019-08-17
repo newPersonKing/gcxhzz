@@ -72,6 +72,8 @@ public class MyEventDetailsActivity extends BaseTitleActivity {
     Button btn_voice_download;
     @BindView(R.id.iv_voice_play)
     Button iv_voice_play;
+    @BindView(R.id.tv_river_name)
+    TextView tv_river_name;
 //    @BindView(R.id.ll_voice_play)
 //    LinearLayout ll_voice_play;
 
@@ -176,12 +178,13 @@ public class MyEventDetailsActivity extends BaseTitleActivity {
         }
 
         tv_sj_ly.setText(source+"");
+        tv_river_name.setText(eventEntityData.getRiverName());
         tv_sb_time.setText(eventEntityData.getReportTime());
         tv_event_scope.setText(eventEntityData.getEventTitle());
         iv_event_urgency.setVisibility(View.VISIBLE);
         iv_event_state.setVisibility(View.VISIBLE);
         /*紧急状态*/
-        if (eventEntityData.getUrgency()==0){
+        if (eventEntityData.getUrgency()==1){
             iv_event_urgency.setImageResource(R.mipmap.general);
         }else {
             iv_event_urgency.setImageResource(R.mipmap.urgency);

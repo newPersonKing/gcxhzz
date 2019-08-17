@@ -1,1 +1,1 @@
-include 'app', ':MyHttpRequest', ':MyRecyclerViewAdapter', ':mywidget', ':MyjsBridge', ':PhotoView', 'SwipeRefresh', 'ProgressLayout', ':pictureandrecorder', ':nucrop', ':marqueelibrary'
+include 'app', ':MyHttpRequest', ':MyRecyclerViewAdapter', ':mywidget', ':MyjsBridge', ':PhotoView', 'SwipeRefresh', 'ProgressLayout', ':pictureandrecorder', ':nucrop', ':marqueelibrary', ':updateapputils'

@@ -16,8 +16,16 @@ import org.json.JSONException;
 import java.util.HashMap;
 
 import butterknife.OnClick;
+import constacne.UiType;
+import model.UiConfig;
+import update.UpdateAppUtils;
 
 public class MySettingActivity extends BaseTitleActivity {
+
+    private String apkUrl = "http://118.24.148.250:8080/yk/update_signed.apk";
+    private String updateTitle = "发现新版本";
+    private String updateContent = "1、Kotlin重构版\n2、支持自定义UI\n3、增加md5校验\n4、更多功能等你探索";
+
     @Override
     protected int onSetContentView() {
         return R.layout.layout_my_setting;
@@ -42,7 +50,8 @@ public class MySettingActivity extends BaseTitleActivity {
     }
     @OnClick({
             R.id.fv_copyright,
-            R.id.btn_login_out
+            R.id.btn_login_out,
+            R.id.fv_check_version
     })
     @Override
     public void onClick(View v) {
@@ -53,6 +62,17 @@ public class MySettingActivity extends BaseTitleActivity {
                 break;
             case R.id.btn_login_out:
                 alAlertDialog.show();
+                break;
+            case R.id.fv_check_version:
+               UiConfig uiConfig = new UiConfig();
+               uiConfig.setUiType(UiType.SIMPLE);
+                UpdateAppUtils
+                        .getInstance()
+                        .apkUrl(apkUrl)
+                        .updateTitle(updateTitle)
+                        .uiConfig(uiConfig)
+                        .updateContent(updateContent)
+                        .update();
                 break;
         }
     }
