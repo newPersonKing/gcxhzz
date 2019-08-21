@@ -164,15 +164,17 @@ public class SelectRividerFragmentDialog extends DialogFragment {
     @Override
     public void onResume() {
         super.onResume();
+        Log.i("ccccccccccc","onResume");
         if(contentBeans.size()==0){
             getHDData();
         }
     }
 
+
     /*获取河段信息*/
     private void getHDData(){
         Map<String,Object> map=new HashMap<>();
-        HttpRequestUtils.getInstance().getNovate().executeGet(HttpService.API_RIVERBASEINFO_GET, map, new Novate.ResponseCallBack<Object>() {
+        HttpRequestUtils.getInstance().getNovate().executeGet(HttpService.GET_ME_RIVER, map, new Novate.ResponseCallBack<Object>() {
 
             @Override
             public void onStart() {}

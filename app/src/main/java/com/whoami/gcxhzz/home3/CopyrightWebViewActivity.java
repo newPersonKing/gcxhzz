@@ -4,6 +4,7 @@ import android.webkit.WebView;
 
 import com.whoami.gcxhzz.R;
 import com.whoami.gcxhzz.base.activity.BaseTitleActivity;
+import com.whoami.gcxhzz.http.HttpRequestUtils;
 
 import butterknife.BindView;
 
@@ -22,6 +23,6 @@ public class CopyrightWebViewActivity extends BaseTitleActivity {
 
     @Override
     protected void onInitData() {
-        mWebView.loadUrl("http://119.57.114.28:18181/About/PhoneCopyright");
+        mWebView.loadUrl(HttpRequestUtils.HOST_URL+"/About/PhoneCopyright");
     }
 }

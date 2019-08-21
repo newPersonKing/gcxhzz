@@ -43,4 +43,12 @@ public interface HttpService {
     /*获取巡河人员*/
     String GET_USER_LIST = "api/Task/GetUserList";
 
+    /*获取版本信息*/
+    String CHECK_VERSION = "api/AppVersion/CheckVersion";
+
+    /*根据人员获取对应的巡查河流*/
+    String GET_ME_RIVER = "Api/RiverBaseInfo/GetMe";
+
+    /*版本说明*/
+    String VERSION_INFO = "Api/about/index";
 }

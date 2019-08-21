@@ -248,8 +248,12 @@ public class Home1MapFragment extends BaseFragment {
                 }
                 break;
             case R.id.btn_task_issue:
-                Intent intent = new Intent(mContext,IssuseTaskActivity.class);
-                startActivity(intent);
+                if(mApplication.isLogin()){
+                    Intent intent = new Intent(mContext,IssuseTaskActivity.class);
+                    startActivity(intent);
+                }else{
+                    BaseUtils.gotoLogin();
+                }
                 break;
         }
     }

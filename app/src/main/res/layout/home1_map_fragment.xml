@@ -79,8 +79,7 @@
             android:background="@drawable/back_corner"
             android:paddingTop="@dimen/dp_5"
             android:textColor="#666666"
-            android:textSize="14sp"
-            android:visibility="gone"/>
+            android:textSize="14sp" />
 
 
     </LinearLayout>
